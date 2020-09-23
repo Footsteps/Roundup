@@ -7,6 +7,9 @@ const cookieSession = require("cookie-session");
 const db = require("./db");
 const bc = require("./bc");
 const csurf = require("csurf");
+const { sendEmail } = require("./ses");
+const crs = require("crypto-random-string");
+//sendEmail("slender.trade+123@spicedling.email", "i like you", "will you marry me");
 
 //without express.json req.body will just be an empty object
 
@@ -151,6 +154,58 @@ app.post("/login", (req, res) => {
             console.log("err in db.email", err);
         });
 });
+
+//////////////////////RESET PASSWORD/////////////////////////////////
+app.post("/reset", (req, res) => {
+    console.log("post request to login route happend!!!");
+    console.log("req.body in login: ", req.body);
+
+    db.email(req.body.email)
+        .then(({ rows }) => {
+            console.log("rows in post reset: ", rows[0]);
+            if (rows[0] == undefined) {
+                console.log("this email does not exist!!!");
+
+                res.json({
+                    success: false,
+                });
+            } else {
+                console.log("this worked!!!");
+                //generate code//
+                let code;
+                code = crs({ length: 6 });
+                console.log("random code: ", code);
+
+                //store code in table
+                db.insertCode(rows[0].email, code)
+                    .then(({ rows }) => {
+                        console.log("email from insertCode: ", rows[0].email);
+                        console.log("code from insertCode: ", rows[0].code);
+
+                        //send email
+                        sendEmail(
+                            rows[0].email,
+                            "Code for Password Reset",
+                            `Please enter this code if asked: ${rows[0].code}. It is about the password reset :).`
+                        );
+
+                        //send response to render the next stage
+
+                        res.json({
+                            successCode: true,
+                        });
+                    })
+                    .catch((err) => {
+                        console.log("err in insertCode", err);
+                    });
+            }
+        })
+        .catch((err) => {
+            console.log("err in db.email", err);
+        });
+});
+
+///////////////////////////////////////////////////////////////////////
 
 app.listen(8080, function () {
     console.log("I'm here for you :)");

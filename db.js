@@ -25,3 +25,15 @@ module.exports.email = (email) => {
 module.exports.getUsers = () => {
     return db.query(`SELECT * FROM users`);
 };
+
+///////////////////insert reset code ////////////////////////////////
+module.exports.insertCode = (email, code) => {
+    return db.query(
+        `
+    INSERT INTO codes (email, code)
+    VALUES ($1, $2)
+    RETURNING *
+    `,
+        [email, code]
+    );
+};

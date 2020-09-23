@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios";
+import { Link } from "react-router-dom";
 
 export default class Login extends React.Component {
     constructor() {
@@ -85,6 +86,7 @@ export default class Login extends React.Component {
                     />
                     <input type="submit" value="Submit" />
                 </form>
+                <Link to="/reset">Click here to reset your password</Link>
             </div>
         );
     }
