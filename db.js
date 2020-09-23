@@ -4,6 +4,7 @@ const db = spicedPg(
         "postgres:angela:twilight@localhost:5432/socialnetwork"
 );
 
+////////////////////////register//////////////////////////////////
 module.exports.register = (first, last, email, password) => {
     return db.query(
         `
@@ -15,6 +16,12 @@ module.exports.register = (first, last, email, password) => {
     );
 };
 
+///////////////////login//////////////////////////////////////////
+module.exports.email = (email) => {
+    return db.query(`SELECT * FROM users WHERE email = ($1)`, [email]);
+};
+
+////////////////////get it all//////////////////////////////////////
 module.exports.getUsers = () => {
     return db.query(`SELECT * FROM users`);
 };

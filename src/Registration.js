@@ -1,5 +1,6 @@
 import React from "react";
-import axios from "axios";
+import axios from "./axios";
+import { Link } from "react-router-dom";
 
 export default class Registration extends React.Component {
     constructor() {
@@ -27,19 +28,6 @@ export default class Registration extends React.Component {
                 console.log("this.state in handleChange", this.state);
             }
         );
-
-        /*
-        if (
-                    this.state.first === "" ||
-                    this.state.last === "" ||
-                    this.state.email === "" ||
-                    this.state.password === ""
-                ) {
-                    this.setState({
-                        error: true,
-                    });
-                }
-        */
     }
 
     handleSubmit(e) {
@@ -79,6 +67,7 @@ export default class Registration extends React.Component {
     render() {
         return (
             <div>
+                <Link to="/login">Click here to login</Link>
                 <h3>Register here:</h3>
 
                 {this.state.error && (
