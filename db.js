@@ -37,3 +37,21 @@ module.exports.insertCode = (email, code) => {
         [email, code]
     );
 };
+
+///////////////////SELECT RESET CODE ////////////////////////////////////
+module.exports.getCode = (email) => {
+    return db.query(
+        `
+    SELECT *, (
+        SELECT code FROM codes
+        WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
+        ORDER BY email DESC
+        LIMIT 1
+    ) AS "lastCode"
+     FROM codes
+    WHERE email = ($1)
+
+    `,
+        [email]
+    );
+};

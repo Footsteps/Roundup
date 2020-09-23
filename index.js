@@ -205,6 +205,33 @@ app.post("/reset", (req, res) => {
         });
 });
 
+//////////////////////ENTERED RESET CODE/////////////////////////////////
+app.post("/code", (req, res) => {
+    console.log("post request to code route happend!!!");
+    console.log("req.body in code: ", req.body);
+
+    db.getCode(req.body.email)
+        .then(({ rows }) => {
+            console.log("rows in post code: ", rows[0].lastCode);
+
+            if (rows[0].lastCode != req.body.code) {
+                console.log("this code does not exist!!!");
+
+                res.json({
+                    success: false,
+                });
+            }
+            if (rows[0].lastCode == req.body.code) {
+                console.log("this worked!!!");
+                res.json({
+                    success: true,
+                });
+            }
+        })
+        .catch((err) => {
+            console.log("err in db.getCode", err);
+        });
+});
 ///////////////////////////////////////////////////////////////////////
 
 app.listen(8080, function () {

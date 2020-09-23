@@ -7,6 +7,7 @@ export default class ResetPw extends React.Component {
         this.state = {
             email: "",
             password: "",
+            code: "",
             currentDisplay: 1,
             error: false,
         };
@@ -64,6 +65,41 @@ export default class ResetPw extends React.Component {
         }
     }
 
+    handleSubmitCode(e) {
+        console.log("submit code was hit!!!!", this.state);
+        e.preventDefault();
+        if (this.state.code === "") {
+            console.log("error happening!!!!");
+            this.setState({
+                error: true,
+            });
+        } else {
+            console.log(
+                "everything worked out well in submit Code, doing axios now!!!!"
+            );
+            console.log("this.state in else Login", this.state);
+            axios
+                .post("/code", {
+                    code: this.state.code,
+                    email: this.state.email,
+                })
+                .then((resp) => {
+                    console.log("code post worked!!!!");
+
+                    console.log("resp in post code", resp.data.success);
+
+                    //data: userId: 8, success: true
+                    if (resp.data.success === false) {
+                        this.setState({
+                            error: true,
+                        });
+                    } else {
+                        console.log("code exists");
+                    }
+                });
+        }
+    }
+
     render() {
         let elem;
         if (this.state.currentDisplay == 1) {
@@ -97,9 +133,38 @@ export default class ResetPw extends React.Component {
         }
         if (this.state.currentDisplay == 2) {
             console.log("current display is two!!!!");
+
             elem = (
                 <div>
-                    <h3>we have reached current display 2:</h3>
+                    <h3>Current Display 2:</h3>
+
+                    {this.state.error && (
+                        <p className="error">
+                            Something went wrong, please try again!
+                        </p>
+                    )}
+                    <form
+                        onSubmit={(e) => this.handleSubmitCode(e)}
+                        method="POST"
+                    >
+                        <label htmlFor="code">
+                            Please enter the Code which you received via mail
+                        </label>
+                        <input
+                            onChange={(e) => this.handleReset(e, "code")}
+                            name="code"
+                            placeholder="Code"
+                        />
+                        <input type="submit" value="Submit" />
+                    </form>
+                </div>
+            );
+        }
+        if (this.state.currentDisplay == 3) {
+            console.log("current display is three!!!!");
+            elem = (
+                <div>
+                    <h3>we have reached current display 3:</h3>
 
                     {this.state.error && (
                         <p className="error">
