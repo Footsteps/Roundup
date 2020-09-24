@@ -21,9 +21,13 @@ module.exports.email = (email) => {
     return db.query(`SELECT * FROM users WHERE email = ($1)`, [email]);
 };
 
-////////////////////get it all//////////////////////////////////////
-module.exports.getUsers = () => {
-    return db.query(`SELECT * FROM users`);
+////////////////////get user data (App loads)//////////////////////////////////////
+module.exports.getUser = (id) => {
+    return db.query(
+        `SELECT id, first, last, imageUrl, bio FROM users
+    WHERE id = ($1)`,
+        [id]
+    );
 };
 
 ///////////////////insert reset code ////////////////////////////////
@@ -53,5 +57,29 @@ module.exports.getCode = (email) => {
 
     `,
         [email]
+    );
+};
+
+////////////////replace password////////////////////////////
+module.exports.updatePassword = (email, password) => {
+    return db.query(
+        `
+    UPDATE users SET password = $2
+    WHERE email = $1
+    RETURNING *
+    `,
+        [email, password]
+    );
+};
+
+////////////////UPDATE IMAGE////////////////////////////
+module.exports.updateImage = (url, id) => {
+    return db.query(
+        `
+    UPDATE users SET imageUrl = $1
+    WHERE id = $2
+    RETURNING *
+    `,
+        [url, id]
     );
 };

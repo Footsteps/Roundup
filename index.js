@@ -11,6 +11,32 @@ const { sendEmail } = require("./ses");
 const crs = require("crypto-random-string");
 //sendEmail("slender.trade+123@spicedling.email", "i like you", "will you marry me");
 
+//picture stuff
+const s3 = require("./s3");
+const { s3Url } = require("./config");
+
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+const path = require("path");
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
+
 //without express.json req.body will just be an empty object
 
 app.use(express.static("./public"));
@@ -54,18 +80,6 @@ if (process.env.NODE_ENV != "production") {
 
 //add cookie-session middleware :)
 //refer to petition
-
-///////////////DO NOT DELETE////////////////////////////////////////////////
-////////////////////* ROUTE //////////////////////////////////////////////////
-//this route is running if user manually puts slash into url bar this will run
-app.get("*", function (req, res) {
-    //if user is not logged in
-    if (!req.session.userId) {
-        res.redirect("/welcome");
-    } else {
-        res.sendFile(__dirname + "/index.html");
-    }
-});
 
 ///////////////////////WELCOME ROUTE///////////////////////////////////////////////
 
@@ -122,11 +136,11 @@ app.post("/login", (req, res) => {
 
     db.email(req.body.email)
         .then(({ rows }) => {
-            //console.log("rows: ", rows[0]);
-            //console.log("password in rows: ", rows[0].password);
-            //console.log("password in req.body: ", req.body.password);
+            console.log("rows: ", rows[0]);
+            console.log("password in rows: ", rows[0].password);
+            console.log("password in req.body: ", req.body.password);
             hash = rows[0].password;
-            //console.log("hash: ", hash);
+            console.log("hash: ", hash);
 
             bc.compare(req.body.password, rows[0].password)
                 .then((result) => {
@@ -220,19 +234,100 @@ app.post("/code", (req, res) => {
                 res.json({
                     success: false,
                 });
-            }
-            if (rows[0].lastCode == req.body.code) {
+            } else if (rows[0].lastCode == req.body.code) {
                 console.log("this worked!!!");
-                res.json({
-                    success: true,
-                });
+                bc.hash(req.body.newPassword)
+                    .then((salted) => {
+                        console.log("salted: ", salted);
+                        db.updatePassword(req.body.email, salted)
+                            .then((results) => {
+                                console.log(
+                                    "results in update Password",
+                                    results
+                                );
+
+                                res.json({
+                                    success: true,
+                                });
+                            })
+                            .catch((err) => {
+                                console.log("err in update Password", err);
+                            });
+                    })
+                    .catch((err) => {
+                        console.log("err in bc hash", err);
+                    });
             }
         })
         .catch((err) => {
             console.log("err in db.getCode", err);
         });
 });
-///////////////////////////////////////////////////////////////////////
+//////////////////////APP - USER //////////////////////////////////////////////////
+app.get("/user", async (req, res) => {
+    console.log("get request to App user route happened!!!");
+    console.log("req.session.userId in get user", req.session.userId);
+    let data;
+    try {
+        const { rows } = await db.getUser(req.session.userId);
+        data = rows[0];
+        console.log(data);
+        res.json({
+            data,
+        });
+    } catch (e) {
+        res.json({ error: true });
+    }
+});
+
+/////////////////////UPLOAD PICTURE///////////////////////////////////////////
+
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
+    console.log("post request upload image happened!!!!");
+    console.log("file", req.file);
+    /*
+                        file {
+                    fieldname: 'file',
+                    originalname: 'Vietnam1_ausschnitt.jpg',
+                    encoding: '7bit',
+                    mimetype: 'image/jpeg',
+                    destination: '/home/angela/Schreibtisch/spicedfiles/cumin-socialnetwork/uploads',
+                    filename: 'jDO8ZhR76vz1zG5t08-zzKdOhGpCvUhv.jpg',
+                    path: '/home/angela/Schreibtisch/spicedfiles/cumin-socialnetwork/uploads/jDO8ZhR76vz1zG5t08-zzKdOhGpCvUhv.jpg',
+                    size: 60897
+                    }
+                    */
+    console.log("req.body id", req.body.id);
+    //id: "1"
+    const filename = req.file.filename;
+    console.log("filename", filename);
+    const url = `${s3Url}${filename}`;
+    console.log("url", url);
+    console.log("file is there, giving it to updateImage now");
+    db.updateImage(url, req.body.id)
+        .then(({ rows }) => {
+            console.log("results after updating image", rows[0].imageurl);
+            res.json({ imageurl: rows[0].imageurl });
+        })
+        .catch((err) => {
+            console.log("err in updateimage", err);
+            res.json({ error: true });
+        });
+});
+
+///////////////DO NOT DELETE////////////////////////////////////////////////
+
+////////////////////* ROUTE //////////////////////////////////////////////////
+//this route is running if user manually puts slash into url bar this will run
+app.get("*", function (req, res) {
+    //if user is not logged in
+    if (!req.session.userId) {
+        res.redirect("/welcome");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
+});
+///////////////////////////////////////////////////////////////////////////////
 
 app.listen(8080, function () {
     console.log("I'm here for you :)");

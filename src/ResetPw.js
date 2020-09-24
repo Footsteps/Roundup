@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios";
+import { Link } from "react-router-dom";
 
 export default class ResetPw extends React.Component {
     constructor(props) {
@@ -8,6 +9,7 @@ export default class ResetPw extends React.Component {
             email: "",
             password: "",
             code: "",
+            newPassword: "",
             currentDisplay: 1,
             error: false,
         };
@@ -68,7 +70,7 @@ export default class ResetPw extends React.Component {
     handleSubmitCode(e) {
         console.log("submit code was hit!!!!", this.state);
         e.preventDefault();
-        if (this.state.code === "") {
+        if (this.state.newPassword === "" || this.state.code === "") {
             console.log("error happening!!!!");
             this.setState({
                 error: true,
@@ -82,6 +84,7 @@ export default class ResetPw extends React.Component {
                 .post("/code", {
                     code: this.state.code,
                     email: this.state.email,
+                    newPassword: this.state.newPassword,
                 })
                 .then((resp) => {
                     console.log("code post worked!!!!");
@@ -94,7 +97,9 @@ export default class ResetPw extends React.Component {
                             error: true,
                         });
                     } else {
-                        console.log("code exists");
+                        this.setState({
+                            currentDisplay: 3,
+                        });
                     }
                 });
         }
@@ -155,6 +160,19 @@ export default class ResetPw extends React.Component {
                             name="code"
                             placeholder="Code"
                         />
+                    </form>
+                    <form
+                        onSubmit={(e) => this.handleSubmitCode(e)}
+                        method="POST"
+                    >
+                        <label htmlFor="newPassword">
+                            Please enter the Code which you received via mail
+                        </label>
+                        <input
+                            onChange={(e) => this.handleReset(e, "newPassword")}
+                            name="newPassword"
+                            placeholder="newPassword"
+                        />
                         <input type="submit" value="Submit" />
                     </form>
                 </div>
@@ -164,13 +182,10 @@ export default class ResetPw extends React.Component {
             console.log("current display is three!!!!");
             elem = (
                 <div>
-                    <h3>we have reached current display 3:</h3>
-
-                    {this.state.error && (
-                        <p className="error">
-                            Something went wrong, please try again!
-                        </p>
-                    )}
+                    <h3>Success!!!</h3>
+                    <Link to="/login">
+                        You can now login with you new Password!
+                    </Link>
                 </div>
             );
         }
