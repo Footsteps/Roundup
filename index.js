@@ -315,6 +315,25 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         });
 });
 
+//////////////////////ADD BIO/////////////////////////////////////////////////
+app.post("/bio", (req, res) => {
+    console.log("post request to bio route happend!!!");
+    console.log("req.body in login: ", req.body);
+
+    db.bio(req.body.newBio, req.body.id)
+        .then(({ rows }) => {
+            console.log("rows: ", rows[0].bio);
+
+            res.json({
+                newBio: rows[0].bio,
+                success: true,
+            });
+        })
+        .catch((err) => {
+            console.log("err in db.email", err);
+        });
+});
+
 ///////////////DO NOT DELETE////////////////////////////////////////////////
 
 ////////////////////* ROUTE //////////////////////////////////////////////////

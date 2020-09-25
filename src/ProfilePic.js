@@ -9,6 +9,13 @@ export default function ({ imageurl, first, last, clickHandler }) {
         imageurl = "./default.jpeg";
     }
     return (
-        <img src={imageurl} alt={`${first} ${last}`} onClick={clickHandler} />
+        <div>
+            <img
+                src={imageurl}
+                alt={`${first} ${last}`}
+                onClick={clickHandler}
+                id="profilePic"
+            />
+        </div>
     );
 }

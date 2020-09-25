@@ -50,10 +50,10 @@ export default class ResetPw extends React.Component {
                 })
                 .then((resp) => {
                     console.log("login post worked!!!!");
-                    console.log("resp in login", resp.data.successCode);
+                    console.log("resp in login", resp.data.success);
 
                     //data: userId: 8, success: true
-                    if (resp.data.successCode === false) {
+                    if (resp.data.success === false) {
                         this.setState({
                             error: true,
                         });
@@ -61,6 +61,7 @@ export default class ResetPw extends React.Component {
                         console.log("user exists. email was send");
                         this.setState({
                             currentDisplay: 2,
+                            error: false,
                         });
                     }
                 });
@@ -99,6 +100,7 @@ export default class ResetPw extends React.Component {
                     } else {
                         this.setState({
                             currentDisplay: 3,
+                            error: false,
                         });
                     }
                 });
@@ -130,6 +132,7 @@ export default class ResetPw extends React.Component {
                             onChange={(e) => this.handleReset(e, "email")}
                             name="email"
                             placeholder="email address"
+                            key="email"
                         />
                         <input type="submit" value="Submit" />
                     </form>
@@ -159,6 +162,7 @@ export default class ResetPw extends React.Component {
                             onChange={(e) => this.handleReset(e, "code")}
                             name="code"
                             placeholder="Code"
+                            key="code"
                         />
                     </form>
                     <form
@@ -166,7 +170,7 @@ export default class ResetPw extends React.Component {
                         method="POST"
                     >
                         <label htmlFor="newPassword">
-                            Please enter the Code which you received via mail
+                            Please enter your new password
                         </label>
                         <input
                             onChange={(e) => this.handleReset(e, "newPassword")}

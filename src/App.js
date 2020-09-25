@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "./axios";
-import ProfilePic from "./ProfilePic";
+import Profile from "./Profile";
 import Uploader from "./Uploader";
 
-export default class Registration extends React.Component {
+export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,14 +35,17 @@ export default class Registration extends React.Component {
         }
         return (
             <div>
-                <img src="/logo.jpg" alt="logo" />
-                <ProfilePic
+                <img src="/logo.jpg" alt="logo" id="logo" />
+                <Profile
+                    id={this.state.id}
                     first={this.state.first}
                     last={this.state.last}
                     imageurl={this.state.imageurl}
+                    bio={this.state.bio}
                     clickHandler={() =>
                         this.setState({ uploaderIsVisible: true })
                     }
+                    getBio={(newBio) => this.setState({ bio: newBio })}
                 />
                 {this.state.uploaderIsVisible && (
                     <Uploader
@@ -59,6 +62,3 @@ export default class Registration extends React.Component {
         );
     }
 }
-
-//this.state.uploaderIsVisible && <Uploader setImage={() => this.setState({imageUrl: })}
-//<Uploader cuteAnimal={this.state.id} setImage={(id) => this.setState({ imageurl: })} />
