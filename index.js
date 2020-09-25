@@ -263,7 +263,7 @@ app.post("/code", (req, res) => {
             console.log("err in db.getCode", err);
         });
 });
-//////////////////////APP - USER //////////////////////////////////////////////////
+//////////////////////APP - get USER data //////////////////////////////////////////////////
 app.get("/user", async (req, res) => {
     console.log("get request to App user route happened!!!");
     console.log("req.session.userId in get user", req.session.userId);
@@ -316,22 +316,24 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 });
 
 //////////////////////ADD BIO/////////////////////////////////////////////////
-app.post("/bio", (req, res) => {
+app.post("/bio", async (req, res) => {
     console.log("post request to bio route happend!!!");
     console.log("req.body in login: ", req.body);
+    try {
+        const { rows } = await db.bio(req.body.newBio, req.body.id);
+        console.log("rows: ", rows[0].bio);
 
-    db.bio(req.body.newBio, req.body.id)
-        .then(({ rows }) => {
-            console.log("rows: ", rows[0].bio);
-
-            res.json({
-                newBio: rows[0].bio,
-                success: true,
-            });
-        })
-        .catch((err) => {
-            console.log("err in db.email", err);
+        res.json({
+            newBio: rows[0].bio,
+            success: true,
         });
+    } catch (e) {
+        console.log("err in db bio");
+
+        res.json({
+            success: false,
+        });
+    }
 });
 
 ///////////////DO NOT DELETE////////////////////////////////////////////////

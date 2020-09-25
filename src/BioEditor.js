@@ -28,7 +28,7 @@ export default class BioEditor extends React.Component {
             () => console.log("this.state: ", this.state)
         );
     }
-    handleSubmit(e) {
+    async handleSubmit(e) {
         console.log("submit bio was hit!!!!");
         e.preventDefault();
         console.log("this state in submit: ", this.state.newBio);
@@ -43,26 +43,20 @@ export default class BioEditor extends React.Component {
             );
             console.log("id, bio: ", this.props.id, this.state.newBio);
 
-            axios
-                .post("/bio", {
+            try {
+                const { data } = await axios.post("/bio", {
                     id: this.props.id,
                     newBio: this.state.newBio,
-                })
-                .then((resp) => {
-                    console.log("code post worked!!!!");
-
-                    console.log("resp in post code", resp.data.newBio);
-
-                    //data: userId: 8, success: true
-                    if (resp.data.success === false) {
-                        this.setState({
-                            error: true,
-                        });
-                    } else {
-                        this.setState({ bioEditorIsVisible: false });
-                        this.props.getBio(resp.data.newBio);
-                    }
                 });
+                console.log("code post worked!!!!");
+                console.log("resp in post code", data);
+                this.setState({ bioEditorIsVisible: false });
+                this.props.getBio(data.newBio);
+            } catch (e) {
+                this.setState({
+                    error: true,
+                });
+            }
         }
     }
 
