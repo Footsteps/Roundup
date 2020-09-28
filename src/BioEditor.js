@@ -69,6 +69,7 @@ export default class BioEditor extends React.Component {
             elem = (
                 <div>
                     <button
+                        id="add"
                         type="button"
                         onClick={(e) => this.onClickHandler(e)}
                     >
