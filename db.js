@@ -95,3 +95,12 @@ module.exports.bio = (bio, id) => {
         [bio, id]
     );
 };
+
+////////////////GET OTHER USERS NAME, BIO, PIC///////////
+module.exports.getOtherUser = (id) => {
+    return db.query(
+        `SELECT first, last, imageUrl, bio FROM users
+    WHERE id = ($1)`,
+        [id]
+    );
+};

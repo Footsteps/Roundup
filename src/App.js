@@ -2,6 +2,9 @@ import React from "react";
 import axios from "./axios";
 import Profile from "./Profile";
 import Uploader from "./Uploader";
+import OtherProfile from "./OtherProfile";
+import { BrowserRouter, Route } from "react-router-dom";
+import ProfilePic from "./ProfilePic";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -23,11 +26,7 @@ export default class App extends React.Component {
         this.setState(data.data);
         console.log("This.state after the get requ in user: ", this.state);
     }
-    /*
-    getImage(image) {
-        this.setState({ imageurl: image });
-    }
-    */
+
     render() {
         console.log("props: ", this.props);
         if (!this.state.id) {
@@ -35,29 +34,62 @@ export default class App extends React.Component {
         }
         return (
             <div>
-                <img src="/logo.jpg" alt="logo" id="logo" />
-                <Profile
-                    id={this.state.id}
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageurl={this.state.imageurl}
-                    bio={this.state.bio}
-                    clickHandler={() =>
-                        this.setState({ uploaderIsVisible: true })
-                    }
-                    getBio={(newBio) => this.setState({ bio: newBio })}
-                />
-                {this.state.uploaderIsVisible && (
-                    <Uploader
-                        id={this.state.id}
-                        getImage={(image) =>
-                            this.setState({
-                                imageurl: image,
-                                uploaderIsVisible: false,
-                            })
-                        }
-                    />
-                )}
+                <div className="header">
+                    <img src="/logo.jpg" alt="logo" id="logo" />
+                    <div>
+                        <ProfilePic
+                            id={this.state.id}
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageurl={this.state.imageurl}
+                            clickHandler={() =>
+                                this.setState({
+                                    uploaderIsVisible: true,
+                                })
+                            }
+                        />
+                    </div>
+                </div>
+                <BrowserRouter>
+                    <div>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <Profile
+                                    id={this.state.id}
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    imageurl={this.state.imageurl}
+                                    clickHandler={() =>
+                                        this.setState({
+                                            uploaderIsVisible: true,
+                                        })
+                                    }
+                                    bio={this.state.bio}
+                                    getBio={(newBio) =>
+                                        this.setState({ bio: newBio })
+                                    }
+                                />
+                            )}
+                        />
+                        <Route path="/user/:id" component={OtherProfile} />
+                    </div>
+                </BrowserRouter>
+
+                <div>
+                    {this.state.uploaderIsVisible && (
+                        <Uploader
+                            id={this.state.id}
+                            getImage={(image) =>
+                                this.setState({
+                                    imageurl: image,
+                                    uploaderIsVisible: false,
+                                })
+                            }
+                        />
+                    )}
+                </div>
             </div>
         );
     }

@@ -336,6 +336,37 @@ app.post("/bio", async (req, res) => {
     }
 });
 
+/////////////////////GET /user/:id//////////////////////////////////////////////
+app.get("/api/user/:otherUserId", async (req, res) => {
+    console.log("req.params.otherUserId: ", req.params.otherUserId);
+    console.log("req.session.userId: ", req.session.userId);
+    //triggers if logged in - user is the same as requested user
+    if (req.params.otherUserId == req.session.userId) {
+        res.json({
+            sameUser: true,
+        });
+    } else {
+        try {
+            const { rows } = await db.getOtherUser(req.params.otherUserId);
+            console.log("rows", rows[0]);
+            //triggers if user does not exist or req.params is not a number
+            if (rows[0] == undefined) {
+                console.log("user does not exist!!!");
+                res.json({ noUser: true });
+            } else {
+                res.json({
+                    data: rows[0],
+                });
+            }
+        } catch (err) {
+            console.log("err in get other user", err);
+            res.json({
+                success: false,
+            });
+        }
+    }
+});
+
 ///////////////DO NOT DELETE////////////////////////////////////////////////
 
 ////////////////////* ROUTE //////////////////////////////////////////////////

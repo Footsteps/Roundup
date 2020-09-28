@@ -66,42 +66,66 @@ export default class Registration extends React.Component {
     //location.replace('/')
     render() {
         return (
-            <div>
-                <Link to="/login">Click here to login</Link>
-                <h3>Register here:</h3>
+            <div className="register box">
+                <Link id="linkLogin" to="/login">
+                    Click here to login
+                </Link>
 
-                {this.state.error && (
-                    <p className="error">
-                        Something went wrong, please try again!
-                    </p>
-                )}
-                <label htmlFor="first">enter your first name</label>
+                <form
+                    className="formRegister"
+                    onSubmit={(e) => this.handleSubmit(e)}
+                    method="POST"
+                >
+                    <h3>Register here:</h3>
 
-                <form onSubmit={(e) => this.handleSubmit(e)} method="POST">
-                    <input
-                        onChange={(e) => this.handleChange(e, "first")}
-                        name="first"
-                        placeholder="first name"
-                    />
-                    <label htmlFor="last">enter your last name</label>
-                    <input
-                        onChange={(e) => this.handleChange(e, "last")}
-                        name="last"
-                        placeholder="last name"
-                    />
-                    <label htmlFor="email">enter your email</label>
-                    <input
-                        onChange={(e) => this.handleChange(e, "email")}
-                        name="email"
-                        placeholder="email address"
-                    />
-                    <label htmlFor="password">enter your password</label>
-                    <input
-                        type="password"
-                        onChange={(e) => this.handleChange(e, "password")}
-                        name="password"
-                    />
-                    <input type="submit" value="Submit" />
+                    {this.state.error && (
+                        <p className="error">
+                            Something went wrong, please try again!
+                        </p>
+                    )}
+                    <div className="input-container">
+                        <div className="registerField">
+                            <label htmlFor="first">Enter your first name</label>
+                            <input
+                                onChange={(e) => this.handleChange(e, "first")}
+                                name="first"
+                                placeholder="first name"
+                            />
+                        </div>
+                        <div className="registerField">
+                            <label htmlFor="last">Enter your last name</label>
+                            <input
+                                onChange={(e) => this.handleChange(e, "last")}
+                                name="last"
+                                placeholder="last name"
+                            />
+                        </div>
+                        <div className="registerField">
+                            <label htmlFor="email">
+                                Enter your email adress
+                            </label>
+                            <input
+                                onChange={(e) => this.handleChange(e, "email")}
+                                name="email"
+                                placeholder="email address"
+                            />
+                        </div>
+                        <div className="registerField">
+                            <label htmlFor="password">
+                                Enter your password
+                            </label>
+                            <input
+                                type="password"
+                                onChange={(e) =>
+                                    this.handleChange(e, "password")
+                                }
+                                name="password"
+                            />
+                        </div>
+                        <div className="registerField btn">
+                            <input type="submit" value="Submit" />
+                        </div>
+                    </div>
                 </form>
             </div>
         );

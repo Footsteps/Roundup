@@ -25,7 +25,8 @@ export default function Profile({
 
     return (
         <div>
-            <div className="top">
+            {/*}
+            <div>
                 <ProfilePic
                     id={id}
                     first={first}
@@ -34,6 +35,7 @@ export default function Profile({
                     clickHandler={clickHandler}
                 />
             </div>
+    */}
             <div className="profile">
                 <h1>Hello {first}!!!</h1>
                 <img

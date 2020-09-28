@@ -98,7 +98,7 @@ export default class BioEditor extends React.Component {
                             Something went wrong, please try again!
                         </p>
                     )}
-                    <label htmlFor="newBio">enter your first name:</label>
+                    <label htmlFor="newBio">Time to get crazy 🐃</label>
                     <textarea
                         onChange={(e) => this.handleChange(e)}
                         id="addBio"
