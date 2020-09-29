@@ -1,10 +1,16 @@
 import React from "react";
 import axios from "./axios";
+
+//components I need
+import Header from "./Header";
+import FindPeople from "./FindPeople";
+import OtherProfile from "./OtherProfile";
 import Profile from "./Profile";
 import Uploader from "./Uploader";
-import OtherProfile from "./OtherProfile";
+//because I use Browserrouter
 import { BrowserRouter, Route } from "react-router-dom";
-import ProfilePic from "./ProfilePic";
+//because I use link
+import { Link } from "react-router-dom";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -34,24 +40,10 @@ export default class App extends React.Component {
         }
         return (
             <div>
-                <div className="header">
-                    <img src="/logo.jpg" alt="logo" id="logo" />
-                    <div>
-                        <ProfilePic
-                            id={this.state.id}
-                            first={this.state.first}
-                            last={this.state.last}
-                            imageurl={this.state.imageurl}
-                            clickHandler={() =>
-                                this.setState({
-                                    uploaderIsVisible: true,
-                                })
-                            }
-                        />
-                    </div>
-                </div>
                 <BrowserRouter>
                     <div>
+                        <Header />
+                        <Link to="/users">Click here to Find people</Link>
                         <Route
                             exact
                             path="/"
@@ -73,7 +65,12 @@ export default class App extends React.Component {
                                 />
                             )}
                         />
-                        <Route path="/user/:id" component={OtherProfile} />
+                        <Route
+                            exact
+                            path="/user/:id"
+                            component={OtherProfile}
+                        />
+                        <Route exact path="/users" component={FindPeople} />
                     </div>
                 </BrowserRouter>
 

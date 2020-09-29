@@ -169,6 +169,13 @@ app.post("/login", (req, res) => {
         });
 });
 
+////////////////////LOGOUT////////////////////////////////////////////
+app.post("/logout", (req, res) => {
+    console.log("logout is happening!!");
+    req.session.userId = null;
+    res.sendStatus(200);
+});
+
 //////////////////////RESET PASSWORD/////////////////////////////////
 app.post("/reset", (req, res) => {
     console.log("post request to login route happend!!!");
@@ -363,6 +370,39 @@ app.get("/api/user/:otherUserId", async (req, res) => {
             res.json({
                 success: false,
             });
+        }
+    }
+});
+
+/////////////////////FIND THE 3 USERS REGISTERED RECENTLY//////////////////////////////////////////////
+app.get("/users/:userInput", async (req, res) => {
+    console.log("req.params ", req.params.userInput);
+    if (req.params.userInput == "undefined") {
+        try {
+            const { rows } = await db.getThree();
+            console.log("rows", rows);
+            res.json({
+                data: rows,
+            });
+        } catch (err) {
+            console.log("err in get 3 users", err);
+        }
+    } else {
+        try {
+            const { rows } = await db.getMatchingUsers(req.params.userInput);
+            console.log("rows", rows[0]);
+            if (rows[0] == undefined) {
+                console.log("no search results!!!");
+                res.json({
+                    success: false,
+                });
+            } else {
+                res.json({
+                    data: rows,
+                });
+            }
+        } catch (err) {
+            console.log("err in find users", err);
         }
     }
 });

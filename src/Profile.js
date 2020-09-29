@@ -25,25 +25,25 @@ export default function Profile({
 
     return (
         <div>
-            {/*}
+            <ProfilePic
+                id={id}
+                first={first}
+                last={last}
+                imageurl={imageurl}
+                clickHandler={clickHandler}
+            />
+
             <div>
-                <ProfilePic
-                    id={id}
-                    first={first}
-                    last={last}
-                    imageurl={imageurl}
-                    clickHandler={clickHandler}
-                />
-            </div>
-    */}
-            <div className="profile">
-                <h1>Hello {first}!!!</h1>
+                <h1>
+                    Hello {first} {last}!!!
+                </h1>
                 <img
                     src={imageurl}
                     alt={`${first} ${last}`}
-                    id="profilePicBigger"
+                    id="profilePicBig"
                 />
             </div>
+
             <BioEditor id={id} bio={bio} getBio={getBio} />
         </div>
     );

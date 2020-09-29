@@ -104,3 +104,22 @@ module.exports.getOtherUser = (id) => {
         [id]
     );
 };
+
+//////////////////find the 3 users that registered recently///////////////////////////////
+module.exports.getThree = () => {
+    return db.query(
+        `SELECT * FROM users
+        ORDER BY id DESC
+        LIMIT 3;`
+    );
+};
+
+///////////////////////find users depending on last name or first name////////////////////////
+module.exports.getMatchingUsers = (userInput) => {
+    return db.query(
+        `SELECT first, last, imageUrl, bio FROM users WHERE first ILIKE $1
+    OR last ILIKE $1
+    LIMIT 10;`,
+        [userInput + "%"]
+    );
+};
