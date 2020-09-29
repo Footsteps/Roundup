@@ -11,6 +11,7 @@ export default function Profile({
     bio,
     clickHandler,
     getBio,
+    closeHandler,
 }) {
     console.log(
         "id, imageurl, first, last, clickhandler, getbio",
@@ -20,7 +21,8 @@ export default function Profile({
         imageurl,
         bio,
         clickHandler,
-        getBio
+        getBio,
+        closeHandler
     );
 
     return (

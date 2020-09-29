@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "./axios";
-import ResetPw from "./ResetPw";
 
 //my component called Name will have super-powers from react :)
 export default class Uploader extends React.Component {
@@ -34,9 +33,15 @@ export default class Uploader extends React.Component {
                 } else {
                     this.props.getImage(resp.data.imageurl);
                 }
-                this.props.getImage(resp.data.imageurl);
+                //this.props.getImage(resp.data.imageurl);
             });
         }
+    }
+
+    onClick(e) {
+        console.log("this in close", this.props);
+        e.preventDefault();
+        this.props.closeHandler();
     }
 
     render() {
@@ -54,6 +59,9 @@ export default class Uploader extends React.Component {
                     <label>Upload Your File </label>
                     <input type="file" onChange={(e) => this.onChange(e)} />
                 </form>
+                <button type="button" onClick={(e) => this.onClick(e)}>
+                    close
+                </button>
             </div>
         );
     }
