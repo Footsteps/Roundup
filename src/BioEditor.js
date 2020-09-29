@@ -110,6 +110,7 @@ export default class BioEditor extends React.Component {
                     <button onClick={(e) => this.handleSubmit(e)}>
                         Submit
                     </button>
+                    <button onClick={(e) => this.handleSubmit(e)}>Close</button>
                 </div>
             );
         }
