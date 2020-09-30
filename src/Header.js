@@ -14,7 +14,7 @@ const Header = () => {
     };
     return (
         <header className="header">
-            <img src="logo.jpg" alt="logo" id="logo" />
+            <img src="./logo.jpg" alt="logo" id="logo" />
 
             <span onClick={handleClick}>Click here to logout</span>
         </header>

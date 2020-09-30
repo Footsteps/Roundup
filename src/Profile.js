@@ -14,7 +14,7 @@ export default function Profile({
     closeHandler,
 }) {
     console.log(
-        "id, imageurl, first, last, clickhandler, getbio",
+        "id, first, last, imageurl, clickhandler, getbio in Profile",
         id,
         first,
         last,
@@ -25,27 +25,23 @@ export default function Profile({
         closeHandler
     );
 
+    if (!imageurl) {
+        imageurl = "./default.jpeg";
+    }
+
     return (
         <div>
-            <ProfilePic
-                id={id}
-                first={first}
-                last={last}
-                imageurl={imageurl}
-                clickHandler={clickHandler}
-            />
-
-            <div>
-                <h1>
-                    Hello {first} {last}!!!
-                </h1>
-                <img
-                    src={imageurl}
-                    alt={`${first} ${last}`}
-                    id="profilePicBig"
+            <h1>
+                Hello {first} {last}!!!
+            </h1>
+            <div id="profilePicBigger">
+                <ProfilePic
+                    id={id}
+                    first={first}
+                    last={last}
+                    imageurl={imageurl}
                 />
             </div>
-
             <BioEditor id={id} bio={bio} getBio={getBio} />
         </div>
     );

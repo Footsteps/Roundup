@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "./axios";
 import ProfilePic from "./ProfilePic";
-import BioEditor from "./BioEditor";
+import FriendButton from "./FriendButton";
 
 export default class OtherProfile extends React.Component {
     constructor() {
@@ -32,10 +32,12 @@ export default class OtherProfile extends React.Component {
                     this.props.history.push("/");
                 } else {
                     this.setState(data.data);
+                    /*
                     console.log(
                         "This.state after the get requ in other user: ",
                         this.state
                     );
+                    */
                 }
             } catch (err) {
                 console.log("err in get user/:id!!!", err);
@@ -60,6 +62,7 @@ export default class OtherProfile extends React.Component {
                 </div>
 
                 <div>{this.state.bio}</div>
+                <FriendButton otherUser={this.props.match.params.id} />
             </div>
         );
     }

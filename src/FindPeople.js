@@ -24,6 +24,7 @@ export default function FindPeople() {
                         setSuccess(false);
                     } else {
                         setFoundUsers(data.data);
+                        setSuccess(true);
                     }
                 }
             } catch (err) {

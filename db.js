@@ -123,3 +123,42 @@ module.exports.getMatchingUsers = (userInput) => {
         [userInput + "%"]
     );
 };
+
+////////////////////////////////////////////////////////////////////////////////////
+//////////////FRIENDSHIPS//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+/////////if users in table////////////////////////////////
+module.exports.inFriendships = (recipient_id, sender_id) => {
+    return db.query(
+        `SELECT * FROM friendships
+  WHERE (recipient_id = $1 AND sender_id = $2)
+  OR (recipient_id = $2 AND sender_id = $1);`,
+        [recipient_id, sender_id]
+    );
+};
+
+///////////insert make-friend-request///////////////////////////////////////////////
+module.exports.makeRequest = (sender_id, recipient_id) => {
+    return db.query(
+        `
+    INSERT INTO friendships (sender_id, recipient_id)
+    VALUES ($1, $2)
+    RETURNING *
+    `,
+        [sender_id, recipient_id]
+    );
+};
+
+///////////accept friend-request////////////////////////////////////////
+module.exports.acceptRequest = (sender_id, recipient_id) => {
+    return db.query(
+        `
+    UPDATE friendships 
+    SET accepted = TRUE
+    WHERE (recipient_id = $2 AND sender_id = $1)
+    RETURNING *
+    `,
+        [sender_id, recipient_id]
+    );
+};

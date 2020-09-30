@@ -111,7 +111,7 @@ app.post("/register", (req, res) => {
                 );
 
                 res.json({
-                    userId: rows[0].id,
+                    success: true,
                 });
 
                 //res.redirect("/");
@@ -150,7 +150,6 @@ app.post("/login", (req, res) => {
                         console.log("req.session.userId: ", req.session.userId);
                         console.log("req.session in dbemail: ", req.session);
                         res.json({
-                            userId: rows[0].id,
                             success: true,
                         });
                     } else {
@@ -345,8 +344,8 @@ app.post("/bio", async (req, res) => {
 
 /////////////////////GET /user/:id//////////////////////////////////////////////
 app.get("/api/user/:otherUserId", async (req, res) => {
-    console.log("req.params.otherUserId: ", req.params.otherUserId);
-    console.log("req.session.userId: ", req.session.userId);
+    //console.log("req.params.otherUserId: ", req.params.otherUserId);
+    //console.log("req.session.userId: ", req.session.userId);
     //triggers if logged in - user is the same as requested user
     if (req.params.otherUserId == req.session.userId) {
         res.json({
@@ -355,7 +354,7 @@ app.get("/api/user/:otherUserId", async (req, res) => {
     } else {
         try {
             const { rows } = await db.getOtherUser(req.params.otherUserId);
-            console.log("rows", rows[0]);
+            //console.log("rows", rows[0]);
             //triggers if user does not exist or req.params is not a number
             if (rows[0] == undefined) {
                 console.log("user does not exist!!!");
@@ -404,6 +403,87 @@ app.get("/users/:userInput", async (req, res) => {
         } catch (err) {
             console.log("err in find users", err);
         }
+    }
+});
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////FRIENDSHIP ROUTES/////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+/////////////////////GET to friendships-table//////////////////////////////////////////////
+app.get("/initial-friendship-status/:otherUserId", async (req, res) => {
+    console.log(
+        "req.params.otherUserId recipient_id: ",
+        req.params.otherUserId
+    );
+    console.log("req.session.userId : sender_id", req.session.userId);
+    try {
+        const { rows } = await db.inFriendships(
+            req.params.otherUserId,
+            req.session.userId
+        );
+        console.log("rows[0] in dbfriendships line 426", rows[0]);
+        //now I need rows to tell me about the relationship.
+
+        if (rows[0] == undefined) {
+            console.log("friendship does not exist!!!");
+            res.json({ success: false });
+        } else {
+            console.log("users are in friendships table!!!");
+            res.json({
+                success: true,
+                data: rows[0],
+            });
+        }
+    } catch (err) {
+        console.log("err in db in table", err);
+    }
+});
+
+/////////////////////POST make friend-request//////////////////////////////////////////////
+
+app.post("/send-friend-request/:otherUserId", async (req, res) => {
+    console.log("send friend request was made!!! line 446");
+    console.log(
+        "req.params.otherUserId recipient_id: ",
+        req.params.otherUserId
+    );
+    console.log("req.session.userId : sender_id", req.session.userId);
+
+    try {
+        const { rows } = await db.makeRequest(
+            req.session.userId,
+            req.params.otherUserId
+        );
+        console.log("rows[0] in dbfriendships line 426", rows[0]);
+        //now I need rows to tell me about the relationship.
+
+        res.json({ success: true });
+    } catch (err) {
+        console.log("err in make request", err);
+    }
+});
+
+/////////////////////POST accept friend-request//////////////////////////////////////////////
+
+app.post("/accept-friend-request/:otherUserId", async (req, res) => {
+    console.log("accept friend request was made!!! line 446");
+    console.log("req.params.otherUserId sender_id: ", req.params.otherUserId);
+    console.log("req.session.userId : recipient_id", req.session.userId);
+
+    try {
+        const { rows } = await db.acceptRequest(
+            req.params.otherUserId,
+            req.session.userId
+        );
+        //console.log("rows in dbfriendships line 481", rows[0].accepted);
+        //now I need rows to tell me about the relationship.
+
+        res.json({ success: true });
+    } catch (err) {
+        console.log("err in make request", err);
     }
 });
 

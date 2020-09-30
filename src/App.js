@@ -2,10 +2,11 @@ import React from "react";
 import axios from "./axios";
 
 //components I need
-import Header from "./Header";
+//import Header from "./Header";
 import FindPeople from "./FindPeople";
 import OtherProfile from "./OtherProfile";
 import Profile from "./Profile";
+import ProfilePic from "./ProfilePic";
 import Uploader from "./Uploader";
 //because I use Browserrouter
 import { BrowserRouter, Route } from "react-router-dom";
@@ -33,6 +34,17 @@ export default class App extends React.Component {
         console.log("This.state after the get requ in user: ", this.state);
     }
 
+    handleClick(e) {
+        axios
+            .post("/logout")
+            .then(() => {
+                location.replace("/welcome");
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
+
     render() {
         console.log("props: ", this.props);
         if (!this.state.id) {
@@ -42,7 +54,26 @@ export default class App extends React.Component {
             <div>
                 <BrowserRouter>
                     <div>
-                        <Header />
+                        <div className="header">
+                            <img src="logo.jpg" alt="logo" id="logo" />
+
+                            <span onClick={(e) => this.handleClick(e)}>
+                                Click here to logout
+                            </span>
+                            <div id="profilePic">
+                                <ProfilePic
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    imageurl={this.state.imageurl}
+                                    clickHandler={() =>
+                                        this.setState({
+                                            uploaderIsVisible: true,
+                                        })
+                                    }
+                                />
+                            </div>
+                        </div>
+
                         <Link to="/users">Click here to Find people</Link>
                         <Route
                             exact
