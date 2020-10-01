@@ -98,28 +98,36 @@ app.post("/register", (req, res) => {
     console.log("post request to registration route happend!!!");
     console.log("req.body: ", req.body);
 
-    bc.hash(req.body.password).then((salted) => {
-        console.log("salted: ", salted);
-        db.register(req.body.first, req.body.last, req.body.email, salted)
-            .then(({ rows }) => {
-                console.log("rows in register!!!", rows[0].id);
+    bc.hash(req.body.password)
+        .then((salted) => {
+            console.log("salted: ", salted);
+            db.register(req.body.first, req.body.last, req.body.email, salted)
+                .then(({ rows }) => {
+                    console.log("rows in register!!!", rows[0].id);
 
-                req.session.userId = rows[0].id;
-                console.log(
-                    "req.session with cookie userId: ",
-                    req.session.userId
-                );
+                    req.session.userId = rows[0].id;
+                    console.log(
+                        "req.session with cookie userId: ",
+                        req.session.userId
+                    );
 
-                res.json({
-                    success: true,
+                    res.json({
+                        success: true,
+                    });
+                })
+                .catch((err) => {
+                    console.log("err in register: ", err);
+                    res.json({
+                        success: false,
+                    });
                 });
-
-                //res.redirect("/");
-            })
-            .catch((err) => {
-                console.log("err in register: ", err);
+        })
+        .catch((err) => {
+            console.log("err in bc hash!!!!", err);
+            res.json({
+                success: false,
             });
-    });
+        });
 });
 
 //////////////////////LOGIN//////////////////////////////////////////////////
@@ -161,10 +169,16 @@ app.post("/login", (req, res) => {
                 })
                 .catch((err) => {
                     console.log("err in bc compare: ", err);
+                    res.json({
+                        success: false,
+                    });
                 });
         })
         .catch((err) => {
             console.log("err in db.email", err);
+            res.json({
+                success: false,
+            });
         });
 });
 

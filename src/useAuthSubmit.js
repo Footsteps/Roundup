@@ -19,6 +19,7 @@ export function useAuthSubmit(route, value) {
     const [error, setError] = useState(false);
 
     const handleSubmit = (e) => {
+        console.log("value in handleSubmit: ", value);
         e.preventDefault();
         axios.post(route, value).then((resp) => {
             console.log("resp from handleSubmit", resp);
@@ -26,6 +27,7 @@ export function useAuthSubmit(route, value) {
             if (resp.data.success) {
                 location.replace("/");
             } else {
+                console.log("err happened!!!");
                 //if something breaks
                 setError(true);
             }

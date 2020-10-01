@@ -16,7 +16,8 @@ export default function Registration() {
             </Link>
             <form className="formRegister">
                 <h3>Register here:</h3>
-                {error && <div>oops</div>}
+                {error && <div>Sorry, something went wrong!</div>}
+
                 <div className="input-container">
                     <div className="registerField">
                         <label htmlFor="first">Enter your first name</label>

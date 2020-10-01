@@ -11,7 +11,7 @@ export default function Login() {
 
     return (
         <form>
-            {error && <div>oops</div>}
+            {error && <div>Sorry, something went wrong!</div>}
             <input
                 onChange={handleChange}
                 name="email"
