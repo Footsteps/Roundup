@@ -12,10 +12,12 @@ export default function FriendButton({ otherUser }) {
                 const { data } = await axios.get(
                     "/initial-friendship-status/" + otherUser
                 );
+                /*
                 console.log(
                     "got data from friendships table from get request",
                     data
                 );
+                */
                 if (data.success == false) {
                     setButtonText("Make friend request");
                 } else if (data.success == true) {
@@ -43,7 +45,7 @@ export default function FriendButton({ otherUser }) {
                 );
             }
         })();
-    }, []);
+    }, [buttonText]);
 
     function handleClick(e) {
         e.preventDefault();
@@ -79,7 +81,31 @@ export default function FriendButton({ otherUser }) {
                     );
 
                     if (data.success) {
-                        setButtonText("End friend request");
+                        setButtonText("End friendship");
+                    }
+                } catch (err) {
+                    console.log(
+                        "err in post request for accepting friendship",
+                        err
+                    );
+                }
+            } else if (
+                buttonText == "End friendship" ||
+                buttonText == "Cancel friend request"
+            ) {
+                try {
+                    console.log("button ending friendship was clicked!!!!");
+
+                    const { data } = await axios.post(
+                        "/end-friendship/" + otherUser
+                    );
+                    console.log(
+                        "data from post request to end friendship",
+                        data
+                    );
+
+                    if (data.success) {
+                        setButtonText("Make friend request");
                     }
                 } catch (err) {
                     console.log(

@@ -162,3 +162,13 @@ module.exports.acceptRequest = (sender_id, recipient_id) => {
         [sender_id, recipient_id]
     );
 };
+
+///////////end friendship////////////////////////////////////////
+module.exports.endFriendship = (sender_id, recipient_id) => {
+    return db.query(
+        `DELETE FROM friendships 
+        WHERE (recipient_id = $1 AND sender_id = $2)
+        OR (recipient_id = $2 AND sender_id = $1)`,
+        [sender_id, recipient_id]
+    );
+};

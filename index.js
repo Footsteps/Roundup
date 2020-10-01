@@ -414,11 +414,11 @@ app.get("/users/:userInput", async (req, res) => {
 
 /////////////////////GET to friendships-table//////////////////////////////////////////////
 app.get("/initial-friendship-status/:otherUserId", async (req, res) => {
-    console.log(
+    /*console.log(
         "req.params.otherUserId recipient_id: ",
         req.params.otherUserId
-    );
-    console.log("req.session.userId : sender_id", req.session.userId);
+    );*/
+    //console.log("req.session.userId : sender_id", req.session.userId);
     try {
         const { rows } = await db.inFriendships(
             req.params.otherUserId,
@@ -470,8 +470,8 @@ app.post("/send-friend-request/:otherUserId", async (req, res) => {
 
 app.post("/accept-friend-request/:otherUserId", async (req, res) => {
     console.log("accept friend request was made!!! line 446");
-    console.log("req.params.otherUserId sender_id: ", req.params.otherUserId);
-    console.log("req.session.userId : recipient_id", req.session.userId);
+    //console.log("req.params.otherUserId sender_id: ", req.params.otherUserId);
+    //console.log("req.session.userId : recipient_id", req.session.userId);
 
     try {
         const { rows } = await db.acceptRequest(
@@ -480,6 +480,26 @@ app.post("/accept-friend-request/:otherUserId", async (req, res) => {
         );
         //console.log("rows in dbfriendships line 481", rows[0].accepted);
         //now I need rows to tell me about the relationship.
+
+        res.json({ success: true });
+    } catch (err) {
+        console.log("err in make request", err);
+    }
+});
+
+/////////////////////POST end friend-request//////////////////////////////////////////////
+
+app.post("/end-friendship/:otherUserId", async (req, res) => {
+    console.log("accept friend request was made!!! line 493");
+    console.log("req.params.otherUserId sender_id: ", req.params.otherUserId);
+    console.log("req.session.userId : recipient_id", req.session.userId);
+
+    try {
+        const { rows } = await db.endFriendship(
+            req.params.otherUserId,
+            req.session.userId
+        );
+        console.log("rows in end friendship line 502", rows);
 
         res.json({ success: true });
     } catch (err) {
