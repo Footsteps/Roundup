@@ -14,7 +14,7 @@ export default function Registration() {
             <Link id="linkLogin" to="/login">
                 Click here to login
             </Link>
-            <form className="formRegister">
+            <form>
                 <h3>Register here:</h3>
                 {error && <div>Sorry, something went wrong!</div>}
 

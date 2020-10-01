@@ -21,7 +21,7 @@
 
 #linkLogin {
     position: relative;
-    margin-left: -800%;
+    margin-left: -850%;
     color: black;
     font-size: 1.5em;
 }
@@ -29,6 +29,7 @@
 .register {
     margin-top: -40%;
     margin-left: 80%;
+    margin-right: 2%;
 }
 .register h3 {
     font-size: 1.5em;
@@ -68,6 +69,18 @@
     border: none;
     outline: none;
     border-bottom: 1px solid black;
+}
+
+/*login */
+#login {
+    margin-top: -30%;
+    width: 30%;
+    margin-left: 40%;
+}
+
+.loginField {
+    padding: 5%;
+    text-align: left;
 }
 
 .modal {
