@@ -34,18 +34,16 @@ export default function Friends() {
     }, []);
 
     if (!connections) {
-        //console.log("connections is still undefined!!!");
-        return null;
-    }
+        console.log("connections is still undefined!!!");
+        return <div>No connections yet!</div>;
+    } else {
+        return (
+            <div>
+                {!friends.length && <div>No friends yet!</div>}
+                {friends.length > 0 && <h1>See your friends!</h1>}
 
-    return (
-        <div>
-            {!friends.length && <div>No friends yet!</div>}
-
-            {friends &&
-                friends.map((user) => (
-                    <div>
-                        <h1>Friends</h1>
+                {friends &&
+                    friends.map((user) => (
                         <div key={user.id}>
                             <Link to={`/user/${user.id}`}>
                                 <img src={user.imageurl} />
@@ -62,47 +60,39 @@ export default function Friends() {
                                 </button>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
 
-            {!wannabes.length && <div>No requests yet!</div>}
+                {!wannabes.length && <div>No requests yet!</div>}
 
-            <div>
+                {wannabes.length > 0 && <h1>Your friend requests</h1>}
                 {wannabes &&
                     wannabes.map((user) => (
-                        <div>
-                            <h1>Who wants to be friends with you?</h1>
-                            <div key={user.id}>
-                                <Link to={`/user/${user.id}`}>
-                                    <img src={user.imageurl} />
-                                </Link>
-                                <p>
-                                    {user.first} {user.last}
-                                </p>
-                                <div>
-                                    <button
-                                        onClick={() =>
-                                            dispatch(
-                                                acceptFriendRequest(user.id)
-                                            )
-                                        }
-                                    >
-                                        Accept request
-                                    </button>
-                                    <button
-                                        onClick={() =>
-                                            dispatch(
-                                                rejectFriendRequest(user.id)
-                                            )
-                                        }
-                                    >
-                                        Reject request
-                                    </button>
-                                </div>
+                        <div key={user.id}>
+                            <Link to={`/user/${user.id}`}>
+                                <img src={user.imageurl} />
+                            </Link>
+                            <p>
+                                {user.first} {user.last}
+                            </p>
+                            <div>
+                                <button
+                                    onClick={() =>
+                                        dispatch(acceptFriendRequest(user.id))
+                                    }
+                                >
+                                    Accept request
+                                </button>
+                                <button
+                                    onClick={() =>
+                                        dispatch(rejectFriendRequest(user.id))
+                                    }
+                                >
+                                    Reject request
+                                </button>
                             </div>
                         </div>
                     ))}
             </div>
-        </div>
-    );
+        );
+    }
 }
