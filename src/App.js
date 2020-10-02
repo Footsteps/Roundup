@@ -14,14 +14,6 @@ import { BrowserRouter, Route } from "react-router-dom";
 //because I use link
 import { Link } from "react-router-dom";
 
-//import redux devtools
-import reduxPromise from "redux-promise";
-import { composeWithDevTools } from "redux-devtools-extension";
-const store = createStore(
-    reducer,
-    composeWithDevTools(applyMiddleware(reduxPromise))
-);
-
 export default class App extends React.Component {
     constructor(props) {
         super(props);

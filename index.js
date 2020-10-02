@@ -521,6 +521,29 @@ app.post("/end-friendship/:otherUserId", async (req, res) => {
     }
 });
 
+app.get("/get-connections", async (req, res) => {
+    //console.log("req.session.userId : sender_id", req.session.userId);
+    try {
+        const { rows } = await db.receiveConnections(req.session.userId);
+        console.log("rows in receive connections line 530", rows);
+        //now I need rows to tell me about the relationship.
+        /*
+        if (rows[0] == undefined) {
+            console.log("friendship does not exist!!!");
+            res.json({ success: false });
+        } else {
+            console.log("users are in friendships table!!!");
+            res.json({
+                success: true,
+                data: rows[0],
+            });
+        }
+        */
+    } catch (err) {
+        console.log("err in db in receive connections", err);
+    }
+});
+
 ///////////////DO NOT DELETE////////////////////////////////////////////////
 
 ////////////////////* ROUTE //////////////////////////////////////////////////
