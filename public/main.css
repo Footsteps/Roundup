@@ -73,9 +73,10 @@
 
 /*login */
 #login {
-    margin-top: -30%;
+    border-radius: 90px 90px 40px 40px;
+    margin-top: -23%;
     width: 30%;
-    margin-left: 40%;
+    margin-left: 35%;
 }
 
 .loginField {
