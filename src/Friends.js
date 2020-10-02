@@ -40,10 +40,12 @@ export default function Friends() {
 
     return (
         <div>
-            <h1>Friends</h1>
-            <div>
-                {connections &&
-                    friends.map((user) => (
+            {!friends.length && <div>No friends yet!</div>}
+
+            {friends &&
+                friends.map((user) => (
+                    <div>
+                        <h1>Friends</h1>
                         <div key={user.id}>
                             <Link to={`/user/${user.id}`}>
                                 <img src={user.imageurl} />
@@ -60,13 +62,16 @@ export default function Friends() {
                                 </button>
                             </div>
                         </div>
-                    ))}
-            </div>
+                    </div>
+                ))}
+
+            {!wannabes.length && <div>No requests yet!</div>}
+
             <div>
-                <h1>Who wants to be friends with you?</h1>
-                <div>
-                    {connections &&
-                        wannabes.map((user) => (
+                {wannabes &&
+                    wannabes.map((user) => (
+                        <div>
+                            <h1>Who wants to be friends with you?</h1>
                             <div key={user.id}>
                                 <Link to={`/user/${user.id}`}>
                                     <img src={user.imageurl} />
@@ -95,8 +100,8 @@ export default function Friends() {
                                     </button>
                                 </div>
                             </div>
-                        ))}
-                </div>
+                        </div>
+                    ))}
             </div>
         </div>
     );
