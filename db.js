@@ -168,7 +168,8 @@ module.exports.endFriendship = (sender_id, recipient_id) => {
     return db.query(
         `DELETE FROM friendships 
         WHERE (recipient_id = $1 AND sender_id = $2)
-        OR (recipient_id = $2 AND sender_id = $1)`,
+        OR (recipient_id = $2 AND sender_id = $1)
+        RETURNING *`,
         [sender_id, recipient_id]
     );
 };
@@ -178,7 +179,7 @@ module.exports.endFriendship = (sender_id, recipient_id) => {
 
 module.exports.receiveConnections = (user_id) => {
     return db.query(
-        `SELECT users.id, first, last, image, accepted
+        `SELECT users.id, first, last, imageurl, accepted
   FROM friendships
   JOIN users
   ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)

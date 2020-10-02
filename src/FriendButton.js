@@ -99,10 +99,12 @@ export default function FriendButton({ otherUser }) {
                     const { data } = await axios.post(
                         "/end-friendship/" + otherUser
                     );
+                    /*
                     console.log(
                         "data from post request to end friendship",
                         data
                     );
+                    */
 
                     if (data.success) {
                         setButtonText("Make friend request");

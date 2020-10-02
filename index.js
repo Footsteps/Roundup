@@ -492,10 +492,10 @@ app.post("/accept-friend-request/:otherUserId", async (req, res) => {
             req.params.otherUserId,
             req.session.userId
         );
-        //console.log("rows in dbfriendships line 481", rows[0].accepted);
+        console.log("rows in dbfriendships line 481", rows[0].sender_id);
         //now I need rows to tell me about the relationship.
 
-        res.json({ success: true });
+        res.json({ success: true, id: rows[0].sender_id });
     } catch (err) {
         console.log("err in make request", err);
     }
@@ -504,18 +504,18 @@ app.post("/accept-friend-request/:otherUserId", async (req, res) => {
 /////////////////////POST end friend-request//////////////////////////////////////////////
 
 app.post("/end-friendship/:otherUserId", async (req, res) => {
-    console.log("accept friend request was made!!! line 493");
-    console.log("req.params.otherUserId sender_id: ", req.params.otherUserId);
-    console.log("req.session.userId : recipient_id", req.session.userId);
+    console.log("end friend request was made!!! line 493");
+    console.log("req.params.otherUserId: recipient ", req.params.otherUserId);
+    console.log("req.session.userId : sender", req.session.userId);
 
     try {
         const { rows } = await db.endFriendship(
-            req.params.otherUserId,
-            req.session.userId
+            req.session.userId,
+            req.params.otherUserId
         );
-        console.log("rows in end friendship line 502", rows);
+        console.log("rows[0] in end friendship line 516", rows[0]);
 
-        res.json({ success: true });
+        res.json({ success: true, id: req.params.otherUserId });
     } catch (err) {
         console.log("err in make request", err);
     }
@@ -526,19 +526,17 @@ app.get("/get-connections", async (req, res) => {
     try {
         const { rows } = await db.receiveConnections(req.session.userId);
         console.log("rows in receive connections line 530", rows);
-        //now I need rows to tell me about the relationship.
-        /*
+
         if (rows[0] == undefined) {
-            console.log("friendship does not exist!!!");
+            console.log("no connections yet");
             res.json({ success: false });
         } else {
-            console.log("users are in friendships table!!!");
+            console.log("connections have been made");
             res.json({
                 success: true,
-                data: rows[0],
+                data: rows,
             });
         }
-        */
     } catch (err) {
         console.log("err in db in receive connections", err);
     }

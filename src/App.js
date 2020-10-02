@@ -76,6 +76,9 @@ export default class App extends React.Component {
                         </div>
 
                         <Link to="/users">Click here to Find people</Link>
+                        <Link to="/friends">
+                            Click here to see your connections
+                        </Link>
                         <Route
                             exact
                             path="/"
