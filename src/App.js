@@ -3,6 +3,7 @@ import axios from "./axios";
 
 //components I need
 //import Header from "./Header";
+import Friends from "./Friends";
 import FindPeople from "./FindPeople";
 import OtherProfile from "./OtherProfile";
 import Profile from "./Profile";
@@ -12,6 +13,14 @@ import Uploader from "./Uploader";
 import { BrowserRouter, Route } from "react-router-dom";
 //because I use link
 import { Link } from "react-router-dom";
+
+//import redux devtools
+import reduxPromise from "redux-promise";
+import { composeWithDevTools } from "redux-devtools-extension";
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(reduxPromise))
+);
 
 export default class App extends React.Component {
     constructor(props) {
@@ -102,6 +111,7 @@ export default class App extends React.Component {
                             component={OtherProfile}
                         />
                         <Route exact path="/users" component={FindPeople} />
+                        <Route exact path="/friends" component={Friends} />
                     </div>
                 </BrowserRouter>
 
