@@ -14,7 +14,6 @@ export default function ({ imageurl, first, last, clickHandler }) {
                 src={imageurl}
                 alt={`${first} ${last}`}
                 onClick={clickHandler}
-                id="profilePic"
             />
         </div>
     );

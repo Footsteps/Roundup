@@ -10,32 +10,36 @@ export default function Login() {
     const [error, handleSubmit] = useAuthSubmit("/login", value);
 
     return (
-        <div className="box" id="login">
-            <form>
+        <div className="heading_form">
+            <h1>Login</h1>
+            <form className="loginbox">
                 {error && <div>Sorry, something went wrong!</div>}
                 <div className="input-container">
-                    <div className="loginField">
-                        <label htmlFor="email">Enter your email adress</label>
-                        <input
-                            onChange={handleChange}
-                            name="email"
-                            placeholder="email"
-                            type="text"
-                        />
-                    </div>
-                    <div className="loginField">
-                        <label htmlFor="password">Enter your password</label>
-                        <input
-                            onChange={handleChange}
-                            name="password"
-                            placeholder="password"
-                            type="password"
-                        />
-                    </div>
+                    <label htmlFor="email">Email</label>
+                    <input
+                        onChange={handleChange}
+                        name="email"
+                        placeholder="email"
+                        type="text"
+                    />
+
+                    <label htmlFor="password">Password</label>
+                    <input
+                        onChange={handleChange}
+                        name="password"
+                        placeholder="password"
+                        type="password"
+                    />
+                    <button onClick={handleSubmit} className="btn">
+                        submit
+                    </button>
                 </div>
-                <button onClick={handleSubmit}>submit</button>
-                <Link to="/reset">Click here to reset your password</Link>
+
+                <div className="resetLink">
+                    <Link to="/reset">Click here to reset your password</Link>
+                </div>
             </form>
+            <img id="logoWelcome" src="./logo.jpg" />
         </div>
     );
 }

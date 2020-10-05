@@ -46,7 +46,7 @@
     opacity: 0.8;
     border: 3px solid black;
 
-    border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 15px 5px 30px;
     /*padding: 70px 100px;*/
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
@@ -72,16 +72,52 @@
 }
 
 /*login */
-#login {
-    border-radius: 90px 90px 40px 40px;
-    margin-top: -23%;
-    width: 30%;
-    margin-left: 35%;
+.loginbox {
+    background-color: #fff;
+    opacity: 0.8;
+    border: 3px solid black;
+    width: 80%;
+    display: inline-block;
+    border-radius: 3px 15px 5px 30px;
+    /*padding: 70px 100px;*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 5%;
+}
+.resetLink {
+    color: black;
+    padding-bottom: 2%;
+}
+/*App*/
+
+.header {
+    height: 30vh;
+    border-bottom: 5px solid black;
+    box-shadow: 2px 2px 5px black;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.loginField {
-    padding: 5%;
-    text-align: left;
+#logo {
+    width: 10%;
+    border-radius: 50%;
+
+    margin: 1%;
+    box-shadow: 2px 2px 5px black;
+}
+
+.profilePic img {
+    height: 100%;
+}
+.profilePic {
+    margin-top: -1%;
+    border: 1px solid white;
+    box-shadow: 2px 2px 5px black;
+}
+
+.nav {
+    list-style: none;
 }
 
 .modal {
@@ -100,18 +136,9 @@
     opacity: 0.9;
 }
 
-/*
-#profilePic {
-    height: 20%;
-    width: 13%;
-    float: right;
-}
-
-#logo {
-    height: 20%;
-    width: 13%;
-    border-radius: 50%;
-    float: left;
+/*main'*/
+.main {
+    height: 80vh;
 }
 
 #profilePicBigger {
@@ -119,4 +146,3 @@
     height: 40%;
     width: 30%;
 }
-*/

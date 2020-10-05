@@ -57,11 +57,23 @@ export default class App extends React.Component {
                     <div>
                         <div className="header">
                             <img src="logo.jpg" alt="logo" id="logo" />
+                            <div>
+                                <span onClick={(e) => this.handleClick(e)}>
+                                    Click here to logout
+                                </span>
+                            </div>
+                            <div>
+                                <Link to="/users">
+                                    Click here to Find people
+                                </Link>
+                            </div>
+                            <div>
+                                <Link to="/friends">
+                                    Click here to see your connections
+                                </Link>
+                            </div>
 
-                            <span onClick={(e) => this.handleClick(e)}>
-                                Click here to logout
-                            </span>
-                            <div id="profilePic">
+                            <div className="profilePic">
                                 <ProfilePic
                                     first={this.state.first}
                                     last={this.state.last}
@@ -74,32 +86,29 @@ export default class App extends React.Component {
                                 />
                             </div>
                         </div>
-
-                        <Link to="/users">Click here to Find people</Link>
-                        <Link to="/friends">
-                            Click here to see your connections
-                        </Link>
-                        <Route
-                            exact
-                            path="/"
-                            render={() => (
-                                <Profile
-                                    id={this.state.id}
-                                    first={this.state.first}
-                                    last={this.state.last}
-                                    imageurl={this.state.imageurl}
-                                    clickHandler={() =>
-                                        this.setState({
-                                            uploaderIsVisible: true,
-                                        })
-                                    }
-                                    bio={this.state.bio}
-                                    getBio={(newBio) =>
-                                        this.setState({ bio: newBio })
-                                    }
-                                />
-                            )}
-                        />
+                        <div className="main">
+                            <Route
+                                exact
+                                path="/"
+                                render={() => (
+                                    <Profile
+                                        id={this.state.id}
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        imageurl={this.state.imageurl}
+                                        clickHandler={() =>
+                                            this.setState({
+                                                uploaderIsVisible: true,
+                                            })
+                                        }
+                                        bio={this.state.bio}
+                                        getBio={(newBio) =>
+                                            this.setState({ bio: newBio })
+                                        }
+                                    />
+                                )}
+                            />
+                        </div>
                         <Route
                             exact
                             path="/user/:id"
