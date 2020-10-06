@@ -188,3 +188,44 @@ module.exports.receiveConnections = (user_id) => {
         [user_id]
     );
 };
+
+//////////////////insert chat message////////////////////////////////////
+module.exports.newMessage = (user_id, message) => {
+    return db.query(
+        `
+    INSERT INTO chat (user_id, mess)
+    VALUES ($1, $2)
+    RETURNING *
+    `,
+        [user_id, message]
+    );
+};
+
+//////////////////get the last 10 chat messages////////////////////////////////////
+
+module.exports.getChatMessages = () => {
+    return db.query(`SELECT 
+    chat.id, users.id AS user_id, users.first AS first, users.last AS last, users.imageUrl AS imageUrl, mess
+FROM chat
+
+JOIN users
+ON chat.user_id = users.id
+ORDER BY id DESC
+LIMIT 10`);
+};
+
+/////////////////get user object that just wrote a new message////////////
+module.exports.getNewMessage = (id) => {
+    return db.query(
+        `SELECT 
+    chat.id, users.id AS user_id, users.first AS first, users.last AS last, users.imageUrl AS imageUrl, mess
+FROM chat
+JOIN users
+ON chat.user_id = users.id
+WHERE chat.user_id = $1
+ORDER BY id DESC
+LIMIT 1
+`,
+        [id]
+    );
+};

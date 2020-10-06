@@ -11,6 +11,10 @@ const { sendEmail } = require("./ses");
 const crs = require("crypto-random-string");
 //sendEmail("slender.trade+123@spicedling.email", "i like you", "will you marry me");
 
+//import socket: change server a little bit so that socket.io is able to work with it
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
+
 //picture stuff
 const s3 = require("./s3");
 const { s3Url } = require("./config");
@@ -47,13 +51,18 @@ app.use(
     })
 );
 app.use(express.json());
-//middleware cookie
-app.use(
-    cookieSession({
-        secret: `I'm always angry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-    })
-);
+
+//middleware cookie - changed for using socket --> to give it access to our cookie session
+
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 //do csurf after cookie!!!
 //use axios with token now --> own module which needs to required
@@ -556,6 +565,65 @@ app.get("*", function (req, res) {
 });
 ///////////////////////////////////////////////////////////////////////////////
 
-app.listen(8080, function () {
+server.listen(8080, function () {
     console.log("I'm here for you :)");
+});
+
+//////////////////////socket code//////////////////////////////////////////////
+//socket is listening whenveer we connect
+
+io.on("connection", function (socket) {
+    //sanity check
+    console.log(`socket.id ${socket.id} is now connected`);
+
+    //sanity check if socket only has access to store if user is logged in
+    //this is why we reconfigured our cookie session middleware
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    //retrieve last 10 messages: db.getLastTenMessages
+    //from users: first name, last name, imageurl
+    //from chat tables: chat messages
+    //most recent message should be located at the bottom --> either in db or use reverse method
+
+    db.getChatMessages().then(({ rows }) => {
+        console.log("chatMessages in line 591", rows);
+        socket.emit("chatMessages", rows);
+    });
+
+    //1 arg: message (in this case coming from from chat.js)
+    //2nd arg: value that comes along with the message
+    socket.on("newMessage", async (newMessage) => {
+        console.log("newMessage from chat.js component!!", newMessage);
+        //who send the message???
+        console.log(
+            "User who send the message: ",
+            socket.request.session.userId
+        );
+
+        try {
+            const { rows } = await db.newMessage(
+                socket.request.session.userId,
+                newMessage
+            );
+            //console.log("rows in insert new chat message line 610", rows);
+            try {
+                const { rows } = await db.getNewMessage(
+                    socket.request.session.userId
+                );
+                //console.log("rows in getNewMessage line 615", rows);
+                socket.emit("addNewMessage", rows[0]);
+            } catch (err) {
+                console.log("err in getting newest message-user", err);
+            }
+        } catch (err) {
+            console.log("err in insert new Chat message, line 610", err);
+        }
+
+        //do a query to get info about the user! (first, last, name, imageurl)
+        //make sure tht new chat message object looks like the one we received from getLastTenMessages
+        //emt the message: io.socket.emit("addChatMessage", obj);
+        //
+    });
 });

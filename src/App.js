@@ -3,6 +3,7 @@ import axios from "./axios";
 
 //components I need
 //import Header from "./Header";
+import Chat from "./Chat";
 import Friends from "./Friends";
 import FindPeople from "./FindPeople";
 import OtherProfile from "./OtherProfile";
@@ -57,17 +58,17 @@ export default class App extends React.Component {
                     <div>
                         <div className="header">
                             <img src="logo.jpg" alt="logo" id="logo" />
-                            <div>
+                            <div className="link">
                                 <span onClick={(e) => this.handleClick(e)}>
                                     Click here to logout
                                 </span>
                             </div>
-                            <div>
+                            <div className="link">
                                 <Link to="/users">
                                     Click here to Find people
                                 </Link>
                             </div>
-                            <div>
+                            <div className="link">
                                 <Link to="/friends">
                                     Click here to see your connections
                                 </Link>
@@ -108,14 +109,16 @@ export default class App extends React.Component {
                                     />
                                 )}
                             />
+
+                            <Route
+                                exact
+                                path="/user/:id"
+                                component={OtherProfile}
+                            />
+                            <Route exact path="/users" component={FindPeople} />
+                            <Route exact path="/friends" component={Friends} />
+                            <Route exact path="/chat" component={Chat} />
                         </div>
-                        <Route
-                            exact
-                            path="/user/:id"
-                            component={OtherProfile}
-                        />
-                        <Route exact path="/users" component={FindPeople} />
-                        <Route exact path="/friends" component={Friends} />
                     </div>
                 </BrowserRouter>
 

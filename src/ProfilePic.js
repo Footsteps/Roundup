@@ -9,11 +9,12 @@ export default function ({ imageurl, first, last, clickHandler }) {
         imageurl = "./default.jpeg";
     }
     return (
-        <div>
+        <div style={{ height: "100%" }}>
             <img
                 src={imageurl}
                 alt={`${first} ${last}`}
                 onClick={clickHandler}
+                style={{ height: "100%" }}
             />
         </div>
     );

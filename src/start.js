@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 //import HelloWorld from "./HelloWorld";
 import Welcome from "./Welcome";
 import App from "./App";
-
+//import socket
+import { init } from "./Socket";
 //import redux stuff
 //provider provides the state
 import { Provider } from "react-redux";
@@ -26,6 +27,7 @@ let component;
 if (location.pathname === "/welcome") {
     component = <Welcome />;
 } else {
+    init(store);
     component = (
         <Provider store={store}>
             <App />

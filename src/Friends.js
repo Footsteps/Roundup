@@ -40,7 +40,9 @@ export default function Friends() {
         return (
             <div>
                 {!friends.length && <div>No friends yet!</div>}
-                {friends.length > 0 && <h1>See your friends!</h1>}
+                {friends.length > 0 && (
+                    <h1 className="subheading_pictures">See your friends!</h1>
+                )}
 
                 {friends &&
                     friends.map((user) => (
@@ -64,7 +66,11 @@ export default function Friends() {
 
                 {!wannabes.length && <div>No requests yet!</div>}
 
-                {wannabes.length > 0 && <h1>Your friend requests</h1>}
+                {wannabes.length > 0 && (
+                    <h1 className="subheading_pictures">
+                        Your friend requests
+                    </h1>
+                )}
                 {wannabes &&
                     wannabes.map((user) => (
                         <div key={user.id}>

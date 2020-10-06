@@ -55,7 +55,7 @@ export default class Uploader extends React.Component {
                     </p>
                 )}
 
-                <form method="post">
+                <form method="post" className="inputfile">
                     <label>Upload Your File </label>
                     <input type="file" onChange={(e) => this.onChange(e)} />
                 </form>

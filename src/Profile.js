@@ -30,19 +30,24 @@ export default function Profile({
     }
 
     return (
-        <div>
-            <h1>
-                Hello {first} {last}!!!
-            </h1>
-            <div id="profilePicBigger">
-                <ProfilePic
-                    id={id}
-                    first={first}
-                    last={last}
-                    imageurl={imageurl}
-                />
+        <div className="container">
+            <div className="card">
+                <h1 className="subheading_pictures">
+                    Hello {first} {last}!
+                </h1>
             </div>
-            <BioEditor id={id} bio={bio} getBio={getBio} />
+            <div>
+                <div id="profilePicBigger" className="images">
+                    <ProfilePic
+                        id={id}
+                        first={first}
+                        last={last}
+                        imageurl={imageurl}
+                        style={{ width: "100%", height: "80%" }}
+                    />
+                </div>
+                <BioEditor id={id} bio={bio} getBio={getBio} />
+            </div>
         </div>
     );
 }

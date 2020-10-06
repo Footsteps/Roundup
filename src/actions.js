@@ -38,3 +38,21 @@ export async function rejectFriendRequest(id) {
 
     return { type: "REJECT", id: data.id };
 }
+
+export async function chatMessages(messages) {
+    //console.log("chatMessages is running!!!!", messages);
+
+    //console.log("data from post request to end friendship IN ACTIONS.JS", data);
+    //console.log("data post requ end friendship IN ACTIONS.JS", data.id);
+
+    return { type: "GET_MESSAGES", messages: messages };
+}
+
+export async function chatMessage(message) {
+    console.log("chatMessage is running!!!!", message);
+
+    //console.log("data from post request to end friendship IN ACTIONS.JS", data);
+    //console.log("data post requ end friendship IN ACTIONS.JS", data.id);
+
+    return { type: "ADD_MESSAGE", message: message };
+}
