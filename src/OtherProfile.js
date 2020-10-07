@@ -26,7 +26,7 @@ export default class OtherProfile extends React.Component {
                 const { data } = await axios.get(
                     `/api/user/${this.props.match.params.id}`
                 );
-                //console.log("data: ", data);
+                console.log("data: ", data);
                 //triggers if user:id is the same as logged in user
                 if (data.sameUser || data.noUser) {
                     this.props.history.push("/");

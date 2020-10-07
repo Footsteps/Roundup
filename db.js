@@ -117,7 +117,7 @@ module.exports.getThree = () => {
 ///////////////////////find users depending on last name or first name////////////////////////
 module.exports.getMatchingUsers = (userInput) => {
     return db.query(
-        `SELECT first, last, imageUrl, bio FROM users WHERE first ILIKE $1
+        `SELECT id, first, last, imageUrl, bio FROM users WHERE first ILIKE $1
     OR last ILIKE $1
     LIMIT 10;`,
         [userInput + "%"]
@@ -226,6 +226,37 @@ WHERE chat.user_id = $1
 ORDER BY id DESC
 LIMIT 1
 `,
+        [id]
+    );
+};
+
+////////////////delete profile//////////////////////////////////////////////////
+module.exports.deleteChat = (id) => {
+    return db.query(
+        `
+    DELETE 
+    FROM chat WHERE user_id = $1;
+    `,
+        [id]
+    );
+};
+
+module.exports.deleteFriendship = (id) => {
+    return db.query(
+        `
+    DELETE 
+    FROM friendships WHERE recipient_id = $1 OR sender_id = $1;
+    `,
+        [id]
+    );
+};
+
+module.exports.deleteUser = (id) => {
+    return db.query(
+        `
+    DELETE 
+    FROM users WHERE id = $1;
+    `,
         [id]
     );
 };

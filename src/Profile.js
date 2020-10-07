@@ -43,7 +43,7 @@ export default function Profile({
                         first={first}
                         last={last}
                         imageurl={imageurl}
-                        className={"profilePIcBigger"}
+                        className={"profilePicBigger"}
                     />
                 </div>
                 <BioEditor id={id} bio={bio} getBio={getBio} />

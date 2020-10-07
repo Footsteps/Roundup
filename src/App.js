@@ -36,10 +36,24 @@ export default class App extends React.Component {
         console.log("This.state after the get requ in user: ", this.state);
     }
 
-    handleClick(e) {
+    handleClick() {
         axios
             .post("/logout")
             .then(() => {
+                location.replace("/welcome");
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
+
+    deleteItem() {
+        console.log("deleting now!!!!");
+
+        axios
+            .post("/delete")
+            .then((success) => {
+                console.log("success in delete post", success);
                 location.replace("/welcome");
             })
             .catch(function (err) {
@@ -63,11 +77,6 @@ export default class App extends React.Component {
                             </div>
 
                             <div className="link">
-                                <span onClick={(e) => this.handleClick(e)}>
-                                    logout
-                                </span>
-                            </div>
-                            <div className="link">
                                 <Link to="/users">Find people</Link>
                             </div>
                             <div className="link">
@@ -75,6 +84,25 @@ export default class App extends React.Component {
                             </div>
                             <div className="link">
                                 <Link to="/chat">Chatboard</Link>
+                            </div>
+                            <div className="link">
+                                <span
+                                    onClick={(e) => {
+                                        if (
+                                            window.confirm(
+                                                "Are you sure you wish to delete your profile?"
+                                            )
+                                        )
+                                            this.deleteItem(e);
+                                    }}
+                                >
+                                    Delete
+                                </span>
+                            </div>
+                            <div className="link">
+                                <span onClick={(e) => this.handleClick(e)}>
+                                    Logout
+                                </span>
                             </div>
 
                             <div className="profilePic">

@@ -190,8 +190,8 @@ input {
 
 .profilePicBigger {
     margin-top: 10%;
-    height: 40%;
-    width: 30%;
+    min-height: 40%;
+    max-height: 80%;
 }
 
 .profile {

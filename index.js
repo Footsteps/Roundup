@@ -126,9 +126,19 @@ app.post("/register", (req, res) => {
                 })
                 .catch((err) => {
                     console.log("err in register: ", err);
-                    res.json({
-                        success: false,
-                    });
+                    if (
+                        err ==
+                        'error: duplicate key value violates unique constraint "users_email_key"'
+                    ) {
+                        console.log("err dublicate key!!!");
+                        res.json({
+                            email: true,
+                        });
+                    } else {
+                        res.json({
+                            success: false,
+                        });
+                    }
                 });
         })
         .catch((err) => {
@@ -548,6 +558,25 @@ app.get("/get-connections", async (req, res) => {
         }
     } catch (err) {
         console.log("err in db in receive connections", err);
+    }
+});
+
+//////////////////////delete profile////////////////////////////////////
+app.post("/delete", async (req, res) => {
+    console.log("post request to delete route happened!!!");
+    console.log("req.session.userId in get user", req.session.userId);
+
+    try {
+        const chat = await db.deleteChat(req.session.userId);
+        //console.log("result from delete chatmessages", chat);
+        const friend = await db.deleteFriendship(req.session.userId);
+        //console.log("result from delete friendship", friend);
+        const user = await db.deleteUser(req.session.userId);
+        //console.log("result from delete user", user);
+        req.session.userId = null;
+        res.sendStatus(200);
+    } catch (e) {
+        console.log("err in delete!!", e);
     }
 });
 

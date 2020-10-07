@@ -29,7 +29,41 @@ export default function Chat() {
     //console.log("here are my last 10 chat messages", chatMessages);
     //capture text-area
     //pressing enter gives me what is currently in text area
-    const keyCheck = (e) => {
+
+    const keyCheckTopic = (e) => {
+        let newTopic;
+        //shows me the input: console.log("value: ", e.target.value);
+        //shows me the key that was hit --> Enter: Enter: console.log("key pressed: ", e.key);
+        if (e.key === "Enter") {
+            //not make the cursor jump to next line when enter is pressed
+            e.preventDefault();
+            //get the mssage
+            console.log("our topic: ", e.target.value);
+            newTopic = e.target.value;
+            //e.target.value = "";
+            //send message to server
+
+            const keyCheckMessage = (e, newTopic) => {
+                console.log("new topic inseide keyCheckMessage", newTopic);
+                //shows me the input: console.log("value: ", e.target.value);
+                //shows me the key that was hit --> Enter: Enter: console.log("key pressed: ", e.key);
+                if (e.key === "Enter") {
+                    //not make the cursor jump to next line when enter is pressed
+                    e.preventDefault();
+                    //get the mssage
+                    console.log("our message: ", e.target.value);
+                    //send message to server
+                    socket.emit("newMessage", e.target.value);
+                    //clear input fields after emiting
+                    e.target.value = "";
+                }
+            };
+        }
+    };
+
+    /*
+    const keyCheckMessage = (e, newTopic) => {
+        console.log("new topic inseide keyCheckMessage", newTopic);
         //shows me the input: console.log("value: ", e.target.value);
         //shows me the key that was hit --> Enter: Enter: console.log("key pressed: ", e.key);
         if (e.key === "Enter") {
@@ -43,6 +77,7 @@ export default function Chat() {
             e.target.value = "";
         }
     };
+    */
 
     return (
         <div>
@@ -62,9 +97,15 @@ export default function Chat() {
                         </div>
                     ))}
             </div>
+            <div></div>
+
+            <textarea
+                placeholder="What's your topic?"
+                onKeyDown={keyCheckTopic}
+            ></textarea>
             <textarea
                 placeholder="Add your message here"
-                onKeyDown={keyCheck}
+                onKeyDown={keyCheckMessage}
             ></textarea>
         </div>
     );

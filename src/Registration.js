@@ -9,6 +9,8 @@ export default function Registration() {
     const [value, handleChange] = useStatefulFields();
     const [error, handleSubmit] = useAuthSubmit("/register", value);
 
+    console.log("errr", error);
+
     return (
         <div>
             <h1>Welcome to my social network!</h1>
@@ -20,7 +22,13 @@ export default function Registration() {
                 </Link>
                 <form>
                     <h3>Register here:</h3>
-                    {error && <div>Sorry, something went wrong!</div>}
+
+                    {error === "email" && (
+                        <div>Sorry, email adress already exists!</div>
+                    )}
+                    {error === "other" && (
+                        <div>Sorry, something went wrong!</div>
+                    )}
 
                     <div className="input-container">
                         <div className="registerField">
