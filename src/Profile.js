@@ -37,13 +37,13 @@ export default function Profile({
                 </h1>
             </div>
             <div className="profile">
-                <div id="profilePicBigger" className="images">
+                <div className="images">
                     <ProfilePic
                         id={id}
                         first={first}
                         last={last}
                         imageurl={imageurl}
-                        style={{ width: "100%", height: "80%" }}
+                        className={"profilePIcBigger"}
                     />
                 </div>
                 <BioEditor id={id} bio={bio} getBio={getBio} />

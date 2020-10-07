@@ -113,6 +113,10 @@
     box-shadow: 2px 2px 5px black;
 }
 
+.profilePicHeader {
+    height: 100%;
+}
+
 .link,
 a:-webkit-any-link {
     color: black;
@@ -184,7 +188,7 @@ input {
     padding: 3%;
 }
 
-#profilePicBigger {
+.profilePicBigger {
     margin-top: 10%;
     height: 40%;
     width: 30%;
@@ -211,6 +215,9 @@ input {
 
 /*find people*/
 #search {
+    padding: 0;
+    width: 20%;
+    border: 2px dotted darkgoldenrod;
 }
 
 /*chat*/
@@ -219,4 +226,9 @@ input {
     width: 80%;
     /*allow scrolling*/
     overflow-y: scroll;
+}
+
+/*otherProfuile*/
+.otherProfileImageHeight {
+    height: 70vh;
 }

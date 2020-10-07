@@ -11,16 +11,12 @@ export default function FriendButton({ otherUser }) {
                 const { data } = await axios.get(
                     "/initial-friendship-status/" + otherUser
                 );
-                /*
-                console.log(
-                    "got data from friendships table from get request",
-                    data
-                );
-                */
+
                 if (data.success == false) {
                     setButtonText("Make friend request");
                 } else if (data.success == true) {
-                    console.log("data after get request", data.data);
+                    //console.log("data after get request", data.data);
+
                     if (
                         otherUser == data.data.sender_id &&
                         !data.data.accepted
@@ -30,7 +26,7 @@ export default function FriendButton({ otherUser }) {
                         );
                         setButtonText("Accept friend request");
                     } else if (
-                        otherUser == data.data.recipient_id &&
+                        otherUser == data.data.sender_id &&
                         data.data.accepted
                     ) {
                         console.log("friendship request was accepted!!");

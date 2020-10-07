@@ -87,6 +87,7 @@ export default class App extends React.Component {
                                             uploaderIsVisible: true,
                                         })
                                     }
+                                    className={"profilePicHeader"}
                                 />
                             </div>
                         </div>

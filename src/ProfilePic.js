@@ -14,7 +14,6 @@ export default function ({ imageurl, first, last, clickHandler, className }) {
                 src={imageurl}
                 alt={`${first} ${last}`}
                 onClick={clickHandler}
-                style={{ height: "100%" }}
                 className={className}
             />
         </div>

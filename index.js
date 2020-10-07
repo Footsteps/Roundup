@@ -377,7 +377,7 @@ app.get("/api/user/:otherUserId", async (req, res) => {
     } else {
         try {
             const { rows } = await db.getOtherUser(req.params.otherUserId);
-            //console.log("rows", rows[0]);
+            console.log("rows in get other user line 380", rows[0]);
             //triggers if user does not exist or req.params is not a number
             if (rows[0] == undefined) {
                 console.log("user does not exist!!!");

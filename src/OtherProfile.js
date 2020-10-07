@@ -63,8 +63,7 @@ export default class OtherProfile extends React.Component {
                             first={this.state.first}
                             last={this.state.last}
                             imageurl={this.state.imageurl}
-                            style={{ width: "100%", height: "80%" }}
-                            className={"profileImageHeight"}
+                            className={"otherProfileImageHeight"}
                         />
                     </div>
                 </div>

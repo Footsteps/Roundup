@@ -48,58 +48,95 @@ export default function Friends() {
                         friends.map((user) => (
                             <div className="container" key={user.id}>
                                 <Link to={`/user/${user.id}`}>
-                                    <img src={user.imageurl} />
+                                    <img
+                                        src={user.imageurl}
+                                        style={{
+                                            width: "100%",
+                                            height: "80%",
+                                        }}
+                                    />
                                 </Link>
 
-                                <p>
-                                    {user.first} {user.last}
-                                </p>
-                                <div>
-                                    <button
-                                        onClick={() =>
-                                            dispatch(unfriend(user.id))
-                                        }
-                                    >
-                                        Unfriend
-                                    </button>
+                                <div className="card">
+                                    <Link to={`/user/${user.id}`}>
+                                        <p
+                                            style={{
+                                                textDecoration: "underline",
+                                            }}
+                                        >
+                                            {user.first} {user.last}
+                                        </p>
+                                    </Link>
+                                    <div>
+                                        <button
+                                            id="add"
+                                            onClick={() =>
+                                                dispatch(unfriend(user.id))
+                                            }
+                                        >
+                                            Unfriend
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ))}
                 </div>
-                {!wannabes.length && <div>No requests yet!</div>}
+                {!wannabes.length && (
+                    <div className="subheading_pictures">No requests yet!</div>
+                )}
 
                 {wannabes.length > 0 && (
                     <h1 className="subheading_pictures">
                         Your friend requests
                     </h1>
                 )}
-                {wannabes &&
-                    wannabes.map((user) => (
-                        <div key={user.id}>
-                            <Link to={`/user/${user.id}`}>
-                                <img src={user.imageurl} />
-                            </Link>
-                            <p>
-                                {user.first} {user.last}
-                            </p>
-                            <div>
-                                <button
-                                    onClick={() =>
-                                        dispatch(acceptFriendRequest(user.id))
-                                    }
-                                >
-                                    Accept request
-                                </button>
-                                <button
-                                    onClick={() =>
-                                        dispatch(rejectFriendRequest(user.id))
-                                    }
-                                >
-                                    Reject request
-                                </button>
+                <div className="images">
+                    {wannabes &&
+                        wannabes.map((user) => (
+                            <div className="container" key={user.id}>
+                                <Link to={`/user/${user.id}`}>
+                                    <img
+                                        src={user.imageurl}
+                                        style={{
+                                            width: "100%",
+                                            height: "80%",
+                                        }}
+                                    />
+                                </Link>
+                                <div className="card">
+                                    <Link to={`/user/${user.id}`}>
+                                        <p
+                                            style={{
+                                                textDecoration: "underline",
+                                            }}
+                                        >
+                                            {user.first} {user.last}
+                                        </p>
+                                    </Link>
+                                    <div>
+                                        <button
+                                            onClick={() =>
+                                                dispatch(
+                                                    acceptFriendRequest(user.id)
+                                                )
+                                            }
+                                        >
+                                            Accept request
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                dispatch(
+                                                    rejectFriendRequest(user.id)
+                                                )
+                                            }
+                                        >
+                                            Reject request
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                </div>
             </div>
         );
     }
