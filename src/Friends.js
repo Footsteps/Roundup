@@ -43,27 +43,29 @@ export default function Friends() {
                 {friends.length > 0 && (
                     <h1 className="subheading_pictures">See your friends!</h1>
                 )}
+                <div className="images">
+                    {friends &&
+                        friends.map((user) => (
+                            <div className="container" key={user.id}>
+                                <Link to={`/user/${user.id}`}>
+                                    <img src={user.imageurl} />
+                                </Link>
 
-                {friends &&
-                    friends.map((user) => (
-                        <div key={user.id}>
-                            <Link to={`/user/${user.id}`}>
-                                <img src={user.imageurl} />
-                            </Link>
-
-                            <p>
-                                {user.first} {user.last}
-                            </p>
-                            <div>
-                                <button
-                                    onClick={() => dispatch(unfriend(user.id))}
-                                >
-                                    Unfriend
-                                </button>
+                                <p>
+                                    {user.first} {user.last}
+                                </p>
+                                <div>
+                                    <button
+                                        onClick={() =>
+                                            dispatch(unfriend(user.id))
+                                        }
+                                    >
+                                        Unfriend
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    ))}
-
+                        ))}
+                </div>
                 {!wannabes.length && <div>No requests yet!</div>}
 
                 {wannabes.length > 0 && (

@@ -23,10 +23,12 @@ export const init = (store) => {
 
         //socket.on("chatMessage", (msg) => store.dispatch(chatMessage(msg)));
         socket.on("addNewMessage", (message) => {
+            /*
             console.log(
                 "my new message i got from index which i now want to store in state",
                 message
             );
+            */
             store.dispatch(chatMessage(message));
         });
     }

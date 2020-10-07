@@ -81,8 +81,9 @@ export default class BioEditor extends React.Component {
             console.log("showing the bio and currentDisplay is 1");
             elem = (
                 <div>
-                    <div>{this.props.bio}</div>
+                    <div className="bio">{this.props.bio}</div>
                     <button
+                        id="add"
                         type="button"
                         onClick={(e) => this.onClickHandler(e)}
                     >

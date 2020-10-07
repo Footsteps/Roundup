@@ -50,15 +50,23 @@ export default class OtherProfile extends React.Component {
             this.setState({ bio: "no Bio available yet" });
         }
         return (
-            <div>
-                <h3>hello there</h3>
-                <div>
-                    <ProfilePic
-                        id={this.state.id}
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageurl={this.state.imageurl}
-                    />
+            <div className="container">
+                <div className="card">
+                    <h3 className="subheading_pictures">
+                        {this.state.first}s Profile
+                    </h3>
+                </div>
+                <div className="profile">
+                    <div id="profilePicBigger" className="images">
+                        <ProfilePic
+                            id={this.state.id}
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageurl={this.state.imageurl}
+                            style={{ width: "100%", height: "80%" }}
+                            className={"profileImageHeight"}
+                        />
+                    </div>
                 </div>
 
                 <div>{this.state.bio}</div>

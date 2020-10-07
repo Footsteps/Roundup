@@ -4,7 +4,7 @@ import React from "react";
 //function gets passed props from App and uses them
 //and it gets the function clickHandler from App
 //this way, App knows when to make the uploader appear because the profile pic was clicked
-export default function ({ imageurl, first, last, clickHandler }) {
+export default function ({ imageurl, first, last, clickHandler, className }) {
     if (!imageurl) {
         imageurl = "./default.jpeg";
     }
@@ -15,6 +15,7 @@ export default function ({ imageurl, first, last, clickHandler }) {
                 alt={`${first} ${last}`}
                 onClick={clickHandler}
                 style={{ height: "100%" }}
+                className={className}
             />
         </div>
     );

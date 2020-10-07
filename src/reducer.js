@@ -45,17 +45,15 @@ export default function (state = {}, action) {
             messages: action.messages,
         };
     } else if (action.type == "ADD_MESSAGE") {
-        console.log("action", action.message);
+        //console.log("action", action.message);
 
         state = {
             ...state,
             messages: [...state.messages, action.message],
         };
 
-        console.log("state after running adding new message", state);
+        //console.log("state after running adding new message", state);
     }
-    //console.log("state after adding messages", state);
-    //console.log("...and state.messages", state.messages);
 
     return state;
 }

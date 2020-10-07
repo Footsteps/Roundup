@@ -588,7 +588,7 @@ io.on("connection", function (socket) {
     //most recent message should be located at the bottom --> either in db or use reverse method
 
     db.getChatMessages().then(({ rows }) => {
-        console.log("chatMessages in line 591", rows);
+        //console.log("chatMessages in line 591", rows);
         socket.emit("chatMessages", rows);
     });
 

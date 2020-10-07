@@ -36,7 +36,7 @@ export default function Profile({
                     Hello {first} {last}!
                 </h1>
             </div>
-            <div>
+            <div className="profile">
                 <div id="profilePicBigger" className="images">
                     <ProfilePic
                         id={id}

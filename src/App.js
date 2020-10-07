@@ -59,19 +59,22 @@ export default class App extends React.Component {
                         <div className="header">
                             <img src="logo.jpg" alt="logo" id="logo" />
                             <div className="link">
+                                <Link to="/">Profile</Link>
+                            </div>
+
+                            <div className="link">
                                 <span onClick={(e) => this.handleClick(e)}>
-                                    Click here to logout
+                                    logout
                                 </span>
                             </div>
                             <div className="link">
-                                <Link to="/users">
-                                    Click here to Find people
-                                </Link>
+                                <Link to="/users">Find people</Link>
                             </div>
                             <div className="link">
-                                <Link to="/friends">
-                                    Click here to see your connections
-                                </Link>
+                                <Link to="/friends">Friends</Link>
+                            </div>
+                            <div className="link">
+                                <Link to="/chat">Chatboard</Link>
                             </div>
 
                             <div className="profilePic">
