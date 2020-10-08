@@ -20,7 +20,7 @@ export function useAuthSubmit(route, value) {
     //const [emailError, setEmailError] = useState(false);
 
     const handleSubmit = (e) => {
-        //console.log("value in handleSubmit: ", value);
+        console.log("value in handleSubmit: ", value);
         e.preventDefault();
         axios.post(route, value).then((resp) => {
             //console.log("resp from handleSubmit", resp);

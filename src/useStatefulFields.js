@@ -22,7 +22,7 @@ export function useStatefulFields() {
             ...value,
             [e.target.name]: e.target.value,
         });
-        //console.log("value:", value.first);
+        console.log("value in useStatefulFields:", value);
     };
 
     return [value, handleChange];

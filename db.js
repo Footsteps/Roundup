@@ -190,14 +190,14 @@ module.exports.receiveConnections = (user_id) => {
 };
 
 //////////////////insert chat message////////////////////////////////////
-module.exports.newMessage = (user_id, message) => {
+module.exports.newMessage = (user_id, topic, message) => {
     return db.query(
         `
-    INSERT INTO chat (user_id, mess)
-    VALUES ($1, $2)
+    INSERT INTO chat (user_id,topic, mess)
+    VALUES ($1, $2, $3)
     RETURNING *
     `,
-        [user_id, message]
+        [user_id, topic, message]
     );
 };
 
@@ -205,7 +205,7 @@ module.exports.newMessage = (user_id, message) => {
 
 module.exports.getChatMessages = () => {
     return db.query(`SELECT 
-    chat.id, users.id AS user_id, users.first AS first, users.last AS last, users.imageUrl AS imageUrl, mess
+    chat.id, users.id AS user_id, users.first AS first, users.last AS last, users.imageUrl AS imageUrl, topic, mess
 FROM chat
 
 JOIN users
@@ -218,7 +218,7 @@ LIMIT 10`);
 module.exports.getNewMessage = (id) => {
     return db.query(
         `SELECT 
-    chat.id, users.id AS user_id, users.first AS first, users.last AS last, users.imageUrl AS imageUrl, mess
+    chat.id, users.id AS user_id, users.first AS first, users.last AS last, users.imageUrl AS imageUrl, topic, mess
 FROM chat
 JOIN users
 ON chat.user_id = users.id

@@ -626,22 +626,26 @@ io.on("connection", function (socket) {
     socket.on("newMessage", async (newMessage) => {
         console.log("newMessage from chat.js component!!", newMessage);
         //who send the message???
+
         console.log(
             "User who send the message: ",
             socket.request.session.userId
         );
+        console.log("topic: ", newMessage.topic);
+        console.log("message: ", newMessage.message);
 
         try {
             const { rows } = await db.newMessage(
                 socket.request.session.userId,
-                newMessage
+                newMessage.topic,
+                newMessage.message
             );
-            //console.log("rows in insert new chat message line 610", rows);
+            console.log("rows in insert new chat message line 610", rows);
             try {
                 const { rows } = await db.getNewMessage(
                     socket.request.session.userId
                 );
-                //console.log("rows in getNewMessage line 615", rows);
+                console.log("rows in getNewMessage line 615", rows);
                 socket.emit("addNewMessage", rows[0]);
             } catch (err) {
                 console.log("err in getting newest message-user", err);
