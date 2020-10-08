@@ -35,9 +35,11 @@ export default function FindPeople() {
     }, [userInput]);
 
     function handleChange(e) {
-        console.log("e.target.value", e.target.value);
-        setUserInput(e.target.value);
-        console.log("foundUsers: ", foundUsers);
+        if (e.key == "Enter") {
+            console.log("e.target.value", e.target.value);
+            setUserInput(e.target.value);
+            console.log("foundUsers: ", foundUsers);
+        }
     }
 
     return (
@@ -49,7 +51,7 @@ export default function FindPeople() {
                             <p className="error">Sorry, no search results!!</p>
                             <h1>Want to try again?</h1>
                             <input
-                                onChange={handleChange}
+                                onKeyDown={handleChange}
                                 type="text"
                                 name="userInput"
                             />
@@ -94,7 +96,7 @@ export default function FindPeople() {
                             </div>
                             <h1>Looking for somebody else yet?</h1>
                             <input
-                                onChange={handleChange}
+                                onKeyDown={handleChange}
                                 type="text"
                                 name="userInput"
                             />
@@ -139,7 +141,7 @@ export default function FindPeople() {
                     </h1>
                     <input
                         id="search"
-                        onChange={handleChange}
+                        onKeyDown={handleChange}
                         type="text"
                         name="userInput"
                     />

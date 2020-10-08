@@ -48,11 +48,27 @@ export async function chatMessages(messages) {
     return { type: "GET_MESSAGES", messages: messages };
 }
 
-export async function chatMessage(message) {
-    console.log("chatMessage is running!!!!", message);
+export async function chatTopics(topics) {
+    //console.log("chatMessages is running!!!!", messages);
 
     //console.log("data from post request to end friendship IN ACTIONS.JS", data);
     //console.log("data post requ end friendship IN ACTIONS.JS", data.id);
 
+    //return { type: "GET_TOPICS" };
+    return { type: "GET_TOPICS", topics: topics };
+}
+
+export async function chatMessage(message) {
+    console.log("chatMessage is running!!!!", message);
+
     return { type: "ADD_MESSAGE", message: message };
+}
+
+export async function chatMessagesByTopic(chatMessagesByTopic) {
+    console.log("chatMessagesByTopic is running!!!!", chatMessagesByTopic);
+
+    return {
+        type: "CHAT_MESSAGES_BY_TOPIC",
+        chatMessagesByTopic: chatMessagesByTopic,
+    };
 }

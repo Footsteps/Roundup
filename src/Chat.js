@@ -11,16 +11,31 @@ export default function Chat() {
     const [topic, setTopic] = useState("");
     const [message, setMessage] = useState("");
 
-    const messages = useSelector((state) => state && state.messages);
+    //const messages = useSelector((state) => state && state.messages);
+    //console.log("messages", messages);
+    //const topics = const uniqueValues = new Set(arr.map((v) => v.topic));
+    //console.log("topics in chat in line 17", topics);
+    /*
+    const uniqueValues = function () {
+        useSelector((state) => state && state.messages).then(() => {
+            new Set(messages.map((v) => v.topic));
+        });
+    };
+
+    console.log("uniquevalues", uniqueValues);
+    */
+    const chatMessagesByTopic = useSelector(
+        (state) => state && state.chatMessagesByTopic
+    );
+    console.log("chatMessagesByTopic", chatMessagesByTopic);
+    const topics = useSelector((state) => state && state.topics);
+    console.log("topics in lne 29", topics);
 
     useEffect(() => {
         console.log("topic", topic);
         //console.log("state", this.state);
         console.log("message", message);
 
-        if (topic && message) {
-            socket.emit("newMessage", { topic: topic, message: message });
-        }
         //console.log("Chat hooks component mounted");
         //console.log("elemRef is ", elemRef);
         //how far have we scrolled from the top?
@@ -34,7 +49,7 @@ export default function Chat() {
         //this needs to be redone everytime I get a new chat message
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;
-    }, [messages, topic, message]);
+    }, [chatMessagesByTopic, topics]);
 
     //console.log("here are my last 10 chat messages", chatMessages);
     //capture text-area
@@ -59,8 +74,8 @@ export default function Chat() {
                 e.target.value = "";
             }
             //get the mssage
-            console.log("topic in keycheck", topic);
-            console.log("message in keycheck", message);
+            //console.log("topic in keycheck", topic);
+            //console.log("message in keycheck", message);
             //
             //send message to server
 
@@ -68,19 +83,43 @@ export default function Chat() {
         }
     };
 
+    const submitMessage = () => {
+        console.log("topic in submit", topic);
+        console.log("message in submit", message);
+        if (topic && message) {
+            socket.emit("newMessage", { topic: topic, message: message });
+        }
+    };
     /*
-    const getMessage = (message) => {
-        console.log("message in get message", message);
-        socket.emit("newMessage", message);
+    const handleClick = (e) => {
+        console.log("e.target.value", e.target.value);
+        console.log("getting messages now topic has been clicked!!");
+        //socket.emit("chatMessagesByTopic", { topic: topic });
     };
     */
 
     return (
         <div>
             <p>Welcome to Chat</p>
+            <div>
+                {topics &&
+                    topics.map((topic) => (
+                        <div key={topic.id}>
+                            <div
+                                onClick={() =>
+                                    socket.emit("chatMessagesByTopic", {
+                                        topic: `${topic.topic}`,
+                                    })
+                                }
+                            >
+                                {topic.topic}
+                            </div>
+                        </div>
+                    ))}
+            </div>
             <div className="chat-messages-container" ref={elemRef}>
-                {messages &&
-                    messages.map((user) => (
+                {chatMessagesByTopic &&
+                    chatMessagesByTopic.map((user) => (
                         <div key={user.id}>
                             <Link to={`/user/${user.user_id}`}>
                                 <img src={user.imageurl} />
@@ -94,10 +133,11 @@ export default function Chat() {
                         </div>
                     ))}
             </div>
+
             <div>
                 <textarea
                     name="topic"
-                    placeholder="Add your message here"
+                    placeholder="What's your topic?"
                     onKeyDown={keyCheck}
                 ></textarea>
                 <textarea
@@ -105,7 +145,7 @@ export default function Chat() {
                     placeholder="Add your message here"
                     onKeyDown={keyCheck}
                 ></textarea>
-                <button>Submit</button>
+                <button onClick={submitMessage}>Submit</button>
             </div>
         </div>
     );

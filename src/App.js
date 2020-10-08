@@ -9,6 +9,7 @@ import FindPeople from "./FindPeople";
 import OtherProfile from "./OtherProfile";
 import Profile from "./Profile";
 import ProfilePic from "./ProfilePic";
+
 import Uploader from "./Uploader";
 //because I use Browserrouter
 import { BrowserRouter, Route } from "react-router-dom";

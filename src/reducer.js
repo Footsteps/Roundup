@@ -49,11 +49,24 @@ export default function (state = {}, action) {
 
         state = {
             ...state,
-            messages: [...state.messages, action.message],
+            chatMessagesByTopic: [...state.chatMessagesByTopic, action.message],
         };
 
         //console.log("state after running adding new message", state);
-    }
+    } else if (action.type == "GET_TOPICS") {
+        console.log("GET TOPICS IS RUNNING!!!");
 
+        state = {
+            ...state,
+            topics: action.topics,
+        };
+    } else if (action.type == "CHAT_MESSAGES_BY_TOPIC") {
+        console.log("CHAT_MESSAGES_BY_TOPIC IS RUNNING!!!");
+
+        state = {
+            ...state,
+            chatMessagesByTopic: action.chatMessagesByTopic,
+        };
+    }
     return state;
 }

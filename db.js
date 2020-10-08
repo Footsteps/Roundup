@@ -210,7 +210,7 @@ FROM chat
 
 JOIN users
 ON chat.user_id = users.id
-ORDER BY id DESC
+ORDER BY topic DESC
 LIMIT 10`);
 };
 
@@ -223,7 +223,7 @@ FROM chat
 JOIN users
 ON chat.user_id = users.id
 WHERE chat.user_id = $1
-ORDER BY id DESC
+ORDER by id DESC
 LIMIT 1
 `,
         [id]
@@ -258,5 +258,27 @@ module.exports.deleteUser = (id) => {
     FROM users WHERE id = $1;
     `,
         [id]
+    );
+};
+
+///////////////////get chat topics//////////////////////
+module.exports.getChatTopics = () => {
+    return db.query(`SELECT DISTINCT ON (topic)
+    topic
+FROM chat`);
+};
+
+/////////////get chat messages by topic///////////////////
+module.exports.chatMessagesByTopic = (topic) => {
+    return db.query(
+        `SELECT 
+    chat.id, users.id AS user_id, users.first AS first, users.last AS last, users.imageUrl AS imageUrl, topic, mess
+FROM chat
+JOIN users
+ON chat.user_id = users.id
+WHERE chat.topic = $1
+ORDER BY id DESC
+LIMIT 10`,
+        [topic]
     );
 };

@@ -615,6 +615,10 @@ io.on("connection", function (socket) {
     //from users: first name, last name, imageurl
     //from chat tables: chat messages
     //most recent message should be located at the bottom --> either in db or use reverse method
+    db.getChatTopics().then(({ rows }) => {
+        console.log("chattopcs!!! in line 618", rows[0]);
+        socket.emit("chatTopics", rows);
+    });
 
     db.getChatMessages().then(({ rows }) => {
         //console.log("chatMessages in line 591", rows);
@@ -641,6 +645,7 @@ io.on("connection", function (socket) {
                 newMessage.message
             );
             console.log("rows in insert new chat message line 610", rows);
+
             try {
                 const { rows } = await db.getNewMessage(
                     socket.request.session.userId
@@ -658,5 +663,18 @@ io.on("connection", function (socket) {
         //make sure tht new chat message object looks like the one we received from getLastTenMessages
         //emt the message: io.socket.emit("addChatMessage", obj);
         //
+    });
+
+    socket.on("chatMessagesByTopic", async (chatMessagesByTopic) => {
+        console.log("topic was clicked, message", chatMessagesByTopic.topic);
+        try {
+            const { rows } = await db.chatMessagesByTopic(
+                chatMessagesByTopic.topic
+            );
+            console.log(rows);
+            socket.emit("chatMessagesByTopic", rows);
+        } catch (err) {
+            console.log("err in getting messges by topic");
+        }
     });
 });
