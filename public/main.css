@@ -37,8 +37,8 @@
 }
 
 .start .title {
-    width: 660px;
-    height: 660px;
+    width: 550px;
+    height: 550px;
 }
 
 .welcome {
@@ -265,4 +265,13 @@ input {
 /*otherProfuile*/
 .otherProfileImageHeight {
     height: 70vh;
+}
+
+.header1 {
+    border-bottom: 5px solid black;
+    box-shadow: 2px 2px 5px black;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
