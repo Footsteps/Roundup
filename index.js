@@ -93,7 +93,7 @@ if (process.env.NODE_ENV != "production") {
 ///////////////////////WELCOME ROUTE///////////////////////////////////////////////
 
 app.get("/welcome", (req, res) => {
-    console.log(req.session.userId);
+    console.log("res.session.userID:", req.session.userId);
     if (req.session.userId) {
         res.redirect("/");
     } else {

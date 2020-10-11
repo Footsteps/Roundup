@@ -6,6 +6,8 @@ import Downloads from "./Downloads";
 
 import Login from "./Login";
 import ResetPw from "./ResetPw";
+import Infos from "./Infos";
+import Apply from "./Apply";
 
 export default function Welcome() {
     return (
@@ -13,10 +15,24 @@ export default function Welcome() {
             <HashRouter>
                 <div>
                     <Route exact path="/" component={Hello} />
-                    <Route exact path="/download" component={Downloads} />
-                    <Route path="/register" component={Registration} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/reset" component={ResetPw} />
+                    <Route path="/downloads">
+                        <Downloads />
+                    </Route>
+                    <Route path="/register">
+                        <Registration />
+                    </Route>
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+                    <Route path="/reset">
+                        <ResetPw />
+                    </Route>
+                    <Route path="/infos">
+                        <Infos />
+                    </Route>
+                    <Route path="/apply">
+                        <Apply />
+                    </Route>
                 </div>
             </HashRouter>
         </div>

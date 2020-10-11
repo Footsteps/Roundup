@@ -2,7 +2,7 @@
     {
         "nummer": "13.",
         "thema": "ERWARTE WUNDER",
-        "datum": "14. bis 16. August 2020",
+        "datum": "13. bis 15. August 2021",
         "straße": "Schwanberg 3",
         "ort": "97348 Rödelsee"
     },
@@ -28,7 +28,7 @@
     },
     {
         "ein": "EINSCHREIBUNG",
-        "einText": "Es gibt keine Einschreibegebühr, stattdessen 7. Tradition. Tagesgäste können Frühstück, Mittagessen oder Abendessen bei uns buchen. Bitte bis 01.08.2019 verbindlich anmelden. Wer sich nicht zum Essen angemeldet hat, kann leider nicht mit uns in der Tagungsstätte essen.",
+        "einText": "Es gibt keine Einschreibegebühr, stattdessen 7. Tradition. Tagesgäste können Frühstück, Mittagessen oder Abendessen bei uns buchen. Bitte bis 01.08.2021 verbindlich anmelden. Wer sich nicht zum Essen angemeldet hat, kann leider nicht mit uns in der Tagungsstätte essen.",
         "hotel": "DAS HOTEL",
         "an": "ANREISE",
         "bahn": "Mit der Bahn",
@@ -59,8 +59,9 @@
     },
     {
         "buchung": "BUCHUNG DES TREFFENS",
-        "buchungText": " Die Anmeldung ist mit dem Eingang des Geldes gültig. Bitte nehme vor dem Überweisen Kontakt per E-Mail mit Monique unter schwanberg.treffen@gmail.com auf.",
-        "Konto": "KONTODATEN FÜR DIE ANMELDUNG",
+        "buchungTextFett": "Die Anmeldung muss unbedingt bis zum 01.08.2021 erfolgen.",
+        "buchungText": " Sie ist mit dem Eingang des Geldes gültig. Bitte nehme vor dem Überweisen Kontakt per E-Mail mit Vera unter schwanberg.treffen@gmail.com auf.",
+        "konto": "KONTODATEN FÜR DIE ANMELDUNG",
         "ke": "Konto Al-Anon Treffen",
         "kn": "IBAN DE17 5005 0201 1203 3797 98",
         "bic": "BIC HELADEF1822 "

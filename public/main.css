@@ -9,12 +9,18 @@
 /*styling welcome*/
 .bgImg {
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
+    object-fit: cover;
+}
+
+.smImg {
+    width: 100vw;
+    height: 25vh;
     object-fit: cover;
 }
 
 .start {
-    height: 100vh;
+    height: 80vh;
     width: 100vw;
     position: absolute;
     top: 0;
@@ -268,6 +274,16 @@ input {
 }
 
 .header1 {
+    border-bottom: 5px solid black;
+    box-shadow: 2px 2px 5px black;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav {
+    height: 20vh;
     border-bottom: 5px solid black;
     box-shadow: 2px 2px 5px black;
     overflow: hidden;
