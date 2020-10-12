@@ -3,7 +3,7 @@
 
 DROP TABLE IF EXISTS weekenders;
 
-CREATE TABLE visitors (
+CREATE TABLE weekenders (
     id SERIAL PRIMARY KEY,
     first VARCHAR NOT NULL,
     last VARCHAR NOT NULL,

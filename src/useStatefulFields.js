@@ -22,8 +22,8 @@ export function useStatefulFields() {
             ...value,
             [e.target.name]: e.target.value,
         });
-        console.log("value in useStatefulFields:", value);
+        //console.log("value in useStatefulFields", value);
     };
-
+    console.log("value in useStatefulFields", value);
     return [value, handleChange];
 }

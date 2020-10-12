@@ -17,14 +17,14 @@ import axios from "./axios";
 
 export function useAuthSubmit(route, value) {
     const [error, setError] = useState(false);
-    //const [emailError, setEmailError] = useState(false);
 
     const handleSubmit = (e) => {
         console.log("value in handleSubmit: ", value);
         e.preventDefault();
-        axios.post(route, value).then((resp) => {
-            //console.log("resp from handleSubmit", resp);
 
+        axios.post(route, value).then((resp) => {
+            console.log("resp from handleSubmit", resp);
+            /*
             if (resp.data.success) {
                 location.replace("/");
             } else if (resp.data.email) {
@@ -35,6 +35,7 @@ export function useAuthSubmit(route, value) {
                 //if something breaks
                 setError("other");
             }
+            */
         });
     };
     return [error, handleSubmit];

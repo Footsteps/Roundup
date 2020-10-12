@@ -1,7 +1,7 @@
 const spicedPg = require("spiced-pg");
 const db = spicedPg(
     process.env.DATABASE_URL ||
-        "postgres:angela:twilight@localhost:5432/socialnetwork"
+        "postgres:angela:twilight@localhost:5432/roundup"
 );
 
 ////////////////////////register//////////////////////////////////
@@ -280,5 +280,61 @@ WHERE chat.topic = $1
 ORDER BY id DESC
 LIMIT 10`,
         [topic]
+    );
+};
+////////////////////////////////////////////////////////////////////
+/////////////APPLICATION////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+////////////daily visitors////////////////////////////////////////
+module.exports.addVisitor = (
+    first,
+    last,
+    email,
+    freitagA,
+    samstagF,
+    samstagM,
+    samstagA,
+    sonntagF,
+    sonntagM,
+    specialFood,
+    yoga,
+    party,
+    message
+) => {
+    return db.query(
+        `
+    INSERT INTO vis (
+    first,
+    last,
+    email,
+    freitagA,
+    samstagF,
+    samstagM,
+    samstagA,
+    sonntagF,
+    sonntagM,
+    specialFood,
+    yoga,
+    party,
+    mess)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+    RETURNING *
+    `,
+        [
+            first,
+            last,
+            email,
+            freitagA,
+            samstagF,
+            samstagM,
+            samstagA,
+            sonntagF,
+            sonntagM,
+            specialFood,
+            yoga,
+            party,
+            message,
+        ]
     );
 };
