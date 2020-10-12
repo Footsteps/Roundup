@@ -3,6 +3,7 @@ import axios from "./axios";
 
 import { useStatefulFields } from "./useStatefulFields";
 import { useAuthSubmit } from "./useAuthSubmit";
+import { Link } from "react-router-dom";
 
 export default function Registration() {
     //call imported hook-function
@@ -13,7 +14,7 @@ export default function Registration() {
 
     return (
         <div>
-            <h1>Welcome to my social network!</h1>
+            <h1>Willkommen zur Anmeldung fürs Chatboard!</h1>
             <img id="logoWelcome" src="./logo.jpg" />
 
             <div className="register box">
@@ -71,6 +72,23 @@ export default function Registration() {
                     </div>
                     <button onClick={handleSubmit}>submit</button>
                 </form>
+            </div>
+            <div className="nav">
+                <p>
+                    <Link to="/infos">INFOS</Link>
+                </p>
+                <p>
+                    <Link to="/downloads">DOWNLOADS</Link>
+                </p>
+                <p>
+                    <Link to="/apply">ANMELDEN</Link>
+                </p>
+                <p>
+                    <Link to="/register">KONTO ANLEGEN</Link>
+                </p>
+                <p>
+                    <Link to="/login">LOGIN</Link>
+                </p>
             </div>
         </div>
     );

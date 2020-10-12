@@ -11,7 +11,7 @@ export default function Login() {
 
     return (
         <div className="heading_form">
-            <h1>Login</h1>
+            <h1>Login Teilnehmer*innen</h1>
             <form className="loginbox">
                 {error && <div>Sorry, something went wrong!</div>}
                 <div className="input-container">
@@ -40,6 +40,23 @@ export default function Login() {
                 </div>
             </form>
             <img id="logoWelcome" src="./logo.jpg" />
+            <div className="nav">
+                <p>
+                    <Link to="/infos">INFOS</Link>
+                </p>
+                <p>
+                    <Link to="/downloads">DOWNLOADS</Link>
+                </p>
+                <p>
+                    <Link to="/apply">ANMELDEN</Link>
+                </p>
+                <p>
+                    <Link to="/register">KONTO ANLEGEN</Link>
+                </p>
+                <p>
+                    <Link to="/login">LOGIN</Link>
+                </p>
+            </div>
         </div>
     );
 }

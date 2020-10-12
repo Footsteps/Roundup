@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Downloads from "./Downloads";
 import data from "./data.json";
@@ -11,10 +11,13 @@ import Apply from "./Apply";
 export default function Hello() {
     return (
         <div>
-            <img src="./logo.jpg" className="bgImg" />
+            <img src="./12.jpg" className="bgImg" />
             <div className="nav">
                 <p>
-                    <Link to="/downloads">FLYER</Link>
+                    <Link to="/infos">INFOS</Link>
+                </p>
+                <p>
+                    <Link to="/downloads">DOWNLOADS</Link>
                 </p>
                 <p>
                     <Link to="/apply">ANMELDEN</Link>
@@ -24,9 +27,6 @@ export default function Hello() {
                 </p>
                 <p>
                     <Link to="/login">LOGIN</Link>
-                </p>
-                <p>
-                    <Link to="/infos">Infos</Link>
                 </p>
             </div>
             <div className="start">

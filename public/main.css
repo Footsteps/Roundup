@@ -291,3 +291,20 @@ input {
     justify-content: space-around;
     align-items: center;
 }
+#profileInfo {
+    display: flex;
+    flex-direction: column;
+    text-align-last: start;
+}
+
+#logoApply {
+    border-radius: 50%;
+    width: 50%;
+    margin-top: 5%;
+    margin-left: -40%;
+}
+
+.apply {
+    margin-left: 60%;
+    margin-top: -70%;
+}

@@ -1,10 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Downloads() {
     return (
         <div>
             <div>
                 <img src="./logo.jpg" alt="starter image" className="bgImg" />
+                <div className="nav">
+                    <p>
+                        <Link to="/infos">INFOS</Link>
+                    </p>
+                    <p>
+                        <Link to="/downloads">DOWNLOADS</Link>
+                    </p>
+                    <p>
+                        <Link to="/apply">ANMELDEN</Link>
+                    </p>
+                    <p>
+                        <Link to="/register">KONTO ANLEGEN</Link>
+                    </p>
+                    <p>
+                        <Link to="/login">LOGIN</Link>
+                    </p>
+                </div>
                 <div className="start">
                     <div className="wrapper title">
                         <h2>Downloads</h2>
