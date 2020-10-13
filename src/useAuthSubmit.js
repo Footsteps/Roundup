@@ -21,21 +21,24 @@ export function useAuthSubmit(route, value) {
     const handleSubmit = (e) => {
         console.log("value in handleSubmit: ", value);
         e.preventDefault();
+        //console.log("browser language", navigator.languages);
 
         axios.post(route, value).then((resp) => {
             console.log("resp from handleSubmit", resp);
-            /*
+
             if (resp.data.success) {
                 location.replace("/");
             } else if (resp.data.email) {
                 console.log("email already exists!!!");
                 setError("email");
+            } else if (resp.data.visitorSuccess) {
+                setError("message");
+                location.replace("/");
             } else {
                 console.log("err happened!!!");
                 //if something breaks
                 setError("other");
             }
-            */
         });
     };
     return [error, handleSubmit];

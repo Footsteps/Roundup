@@ -3,6 +3,7 @@ import React from "react";
 import { useStatefulFields } from "./useStatefulFields";
 import { useAuthSubmit } from "./useAuthSubmit";
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 export default function Apply() {
     const [value, handleChange] = useStatefulFields();
@@ -10,14 +11,26 @@ export default function Apply() {
 
     return (
         <div>
-            <h1>Herzlich Willkommen! Wie schön! Wir freuen uns auf Dich!</h1>
+            <h1>
+                <FormattedMessage id="Ü_apply" />
+            </h1>
             <img id="logoApply" src="./11.jpg" />
             <div className="register box apply">
                 <form>
+                    {error === "email" && (
+                        <div>
+                            <FormattedMessage id="errorEmail" />
+                        </div>
+                    )}
+                    {error === "other" && (
+                        <div>
+                            <FormattedMessage id="errorOther" />
+                        </div>
+                    )}
                     <div className="input-container">
                         <div className="registerField">
                             <label htmlFor="first">
-                                Vorname
+                                <FormattedMessage id="first" />
                                 <input
                                     onChange={handleChange}
                                     name="first"
@@ -27,7 +40,7 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label htmlFor="first">
-                                Nachname
+                                <FormattedMessage id="last" />
                                 <input
                                     onChange={handleChange}
                                     name="last"
@@ -36,8 +49,8 @@ export default function Apply() {
                             </label>
                         </div>
                         <div className="registerField">
-                            <label htmlFor="first">
-                                E-Mail-Adresse
+                            <label htmlFor="email">
+                                E-Mail
                                 <input
                                     onChange={handleChange}
                                     name="email"
@@ -47,7 +60,7 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label>
-                                Abendessen Freitag Abend
+                                <FormattedMessage id="freitagA" />
                                 <input
                                     name="freitagA"
                                     type="checkbox"
@@ -57,7 +70,7 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label>
-                                Samstag Frühstück
+                                <FormattedMessage id="samstagF" />
                                 <input
                                     name="samstagF"
                                     type="checkbox"
@@ -67,7 +80,7 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label>
-                                Samstag Mittagessen
+                                <FormattedMessage id="samstagM" />
                                 <input
                                     name="samstagM"
                                     type="checkbox"
@@ -77,7 +90,7 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label>
-                                Samstag Abendessen
+                                <FormattedMessage id="samstagA" />
                                 <input
                                     name="samstagA"
                                     type="checkbox"
@@ -87,7 +100,7 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label>
-                                Sonntag Frühstück
+                                <FormattedMessage id="sonntagF" />
                                 <input
                                     name="sonntagF"
                                     type="checkbox"
@@ -97,7 +110,7 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label>
-                                Sonntag Mittagessen
+                                <FormattedMessage id="sonntagN" />
                                 <input
                                     name="sonntagM"
                                     type="checkbox"
@@ -107,7 +120,7 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label>
-                                Sonderkost
+                                <FormattedMessage id="specialFood" />
                                 <input
                                     name="specialFood"
                                     type="checkbox"
@@ -117,7 +130,7 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label>
-                                Yoga
+                                <FormattedMessage id="yoga" />
                                 <input
                                     name="yoga"
                                     type="checkbox"
@@ -127,7 +140,7 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label>
-                                Bringst du etwas zum bunten Abend mit?
+                                <FormattedMessage id="party" />
                                 <input
                                     name="party"
                                     type="checkbox"
@@ -137,16 +150,17 @@ export default function Apply() {
                         </div>
                         <div className="registerField">
                             <label>
-                                Gibt es sonst noch etwas zu sagen?
+                                <FormattedMessage id="message" />
                                 <textarea
                                     name="message"
-                                    placeholder="Add your message here"
                                     onChange={handleChange}
                                 ></textarea>
                             </label>
                         </div>
 
-                        <button onClick={handleSubmit}>Abschicken</button>
+                        <button onClick={handleSubmit}>
+                            <FormattedMessage id="send" />
+                        </button>
                     </div>
                 </form>
             </div>
@@ -155,13 +169,17 @@ export default function Apply() {
                     <Link to="/infos">INFOS</Link>
                 </p>
                 <p>
-                    <Link to="/downloads">DOWNLOADS</Link>
+                    <Link to="/downloads">FLYER / MEETING SCHEDULE</Link>
                 </p>
                 <p>
-                    <Link to="/apply">ANMELDEN</Link>
+                    <Link to="/apply">
+                        <FormattedMessage id="BOOKING" />
+                    </Link>
                 </p>
                 <p>
-                    <Link to="/register">KONTO ANLEGEN</Link>
+                    <Link to="/register">
+                        <FormattedMessage id="CREATE AN ACCOUNT" />
+                    </Link>
                 </p>
                 <p>
                     <Link to="/login">LOGIN</Link>

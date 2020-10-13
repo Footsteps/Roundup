@@ -584,6 +584,7 @@ app.post("/delete", async (req, res) => {
 app.post("/apply", async (req, res) => {
     console.log("post request to apply route happend!!!");
     console.log("req.body in apply: ", req.body);
+    console.log("req.body in apply: ", req.body.language);
 
     try {
         const { rows } = await db.addVisitor(
@@ -603,113 +604,177 @@ app.post("/apply", async (req, res) => {
         );
         console.log("data after inserting visitor", rows[0]);
 
-        /*
-        var myKeys = Object.keys(body);
-        myKeys = myKeys.filter(
-            (item) =>
-                body[item] !== null &&
-                item != "first" &&
-                item != "last" &&
-                item != "id" &&
-                item != "email"
-        );
-        console.log("myKeys", myKeys);
-        var myNewObj = {};
-        myKeys.forEach((key) => (myNewObj[key] = body[key]));
-        console.log("my new obj", myNewObj.samstaga);
-        */
-        if (rows[0].freitaga == null) {
-            rows[0].freitaga = "";
-        } else {
-            rows[0].freitaga = "Abendessen Freitag, ";
-            console.log("myNewObj.freitaga", rows[0].freitaga);
-        }
-        if (rows[0].samstagf) {
-            console.log("samtag frühstück ist da!!");
-            rows[0].samstagf = "Frühstück Samstag, ";
-            console.log("myNewObj.samstagf", rows[0].samstagf);
-        } else {
-            rows[0].samstagf = "";
-        }
-        if (rows[0].samstagm) {
-            console.log("samtag mittag ist da!!");
-            rows[0].samstagm = "Mittagessen Samstag, ";
-            console.log("myNewObj.samstagm", rows[0].samstagm);
-        } else {
-            rows[0].samstagm = "";
-        }
-        if (rows[0].samstaga) {
-            console.log("samtag abend ist da!!");
-            rows[0].samstaga = "Abendessen Samstag, ";
-            console.log("myNewObj.samstaga", rows[0].samstaga);
-        } else {
-            rows[0].samstaga = "";
-        }
-        if (rows[0].sonntagf) {
-            console.log("sonntag früh ist da!!");
-            rows[0].sonntagf = "Frühstück Sonntag, ";
-            console.log("myNewObj.sonntagf", rows[0].sonntagf);
-        } else {
-            rows[0].sonntagf = "";
-        }
-        if (rows[0].sonntagm) {
-            console.log("sonntag mittag ist da!!");
-            rows[0].sonntagm = "Mittagessen Sonntag, ";
-            console.log("myNewObj.soonntagM", rows[0].sonntagm);
-        } else {
-            rows[0].sonntagm = "";
-        }
-        if (rows[0].specialfood) {
-            console.log("sonderkost!!");
-            rows[0].specialfood = "Sonderkost, ";
-            console.log("myNewObj.specia", rows[0].specialfood);
-        } else {
-            rows[0].specialfood = "";
-        }
-        if (rows[0].yoga) {
-            console.log("sonderkost!!");
-            rows[0].yoga = "Yoga, ";
-            console.log("myNewObj.specia", rows[0].yoga);
-        } else {
-            rows[0].yoga = "";
-        }
-        if (rows[0].party) {
-            console.log("sonderkost!!");
-            rows[0].party = "Beitrag bunter Abend, ";
-            console.log("myNewObj.specia", rows[0].party);
-        } else {
-            rows[0].party = "";
-        }
-        if (!rows[0].mess) {
-            console.log("message!!!!");
-            rows[0].mess = "";
-            console.log("myNewObj.specia", rows[0].mess);
-        }
-        console.log("my new Obj after renaming", rows[0]);
+        if (req.body.language == "en-US") {
+            console.log("language english!!");
+            if (rows[0].freitaga == null) {
+                rows[0].freitaga = "";
+            } else {
+                rows[0].freitaga = "friday dinner ";
+            }
+            if (rows[0].samstagf) {
+                rows[0].samstagf = "-satuday breakfast ";
+            } else {
+                rows[0].samstagf = "";
+            }
+            if (rows[0].samstagm) {
+                rows[0].samstagm = "-saturday lunch ";
+            } else {
+                rows[0].samstagm = "";
+            }
+            if (rows[0].samstaga) {
+                rows[0].samstaga = "-saturday dinner ";
+            } else {
+                rows[0].samstaga = "";
+            }
+            if (rows[0].sonntagf) {
+                rows[0].sonntagf = "-sunday breakfast ";
+            } else {
+                rows[0].sonntagf = "";
+            }
+            if (rows[0].sonntagm) {
+                rows[0].sonntagm = "-sunday lunch ";
+            } else {
+                rows[0].sonntagm = "";
+            }
+            if (rows[0].specialfood) {
+                rows[0].specialfood = "-special food is needed ";
+            } else {
+                rows[0].specialfood = "";
+            }
+            if (rows[0].yoga) {
+                rows[0].yoga = "-Yoga ";
+            } else {
+                rows[0].yoga = "";
+            }
+            if (rows[0].party) {
+                rows[0].party = "-you'd like to contribute to the party ";
+            } else {
+                rows[0].party = "";
+            }
+            if (!rows[0].mess) {
+                rows[0].mess = "";
+            } else {
+                rows[0].mess = `And you left this message: ${req.body.message}`;
+            }
 
-        try {
-            const mail = await sendEmail(
-                rows[0].email,
-                "Deine Anmeldung",
-                `Liebe ${rows[0].first}! 
-                Danke für deine Anmeldung!
-                Vera wird sich bald bei dir melden. 
+            try {
+                const mail = await sendEmail(
+                    rows[0].email,
+                    "your schwanberg-booking",
+                    `Hi ${rows[0].first}! 
+                    Thank you so much for your booking! 
+                    Vera will get back to you shortly.
+                    
+                    Just to be sure, this is the info we got from you:
+                    ${rows[0].freitaga}
+                    ${rows[0].samstagf}
+                    ${rows[0].samstagm}
+                    ${rows[0].samstaga}
+                    ${rows[0].sonntagf}
+                    ${rows[0].sonntagm}
+                    ${rows[0].specialfood}
+                    ${rows[0].yoga}
+                    ${rows[0].party}
+                    ${rows[0].mess}.
+            
+            All the best and thank you! 
+            Your Schwanberg-team!`
+                );
+            } catch (err) {
+                console.log("err in sendMail to visitor", err);
+            }
+            var mailOrga = "slender.trade+a@spicedling.email";
+            var nameOrga = "Vera";
+        } else {
+            console.log("language is german!!!");
+
+            if (rows[0].freitaga == null) {
+                rows[0].freitaga = "";
+            } else {
+                rows[0].freitaga = "- Abendessen Freitag ";
+            }
+            if (rows[0].samstagf) {
+                rows[0].samstagf = "- Frühstück Samstag ";
+            } else {
+                rows[0].samstagf = "";
+            }
+            if (rows[0].samstagm) {
+                rows[0].samstagm = "- Mittagessen Samstag ";
+            } else {
+                rows[0].samstagm = "";
+            }
+            if (rows[0].samstaga) {
+                rows[0].samstaga = "- Abendessen Samstag ";
+            } else {
+                rows[0].samstaga = "";
+            }
+            if (rows[0].sonntagf) {
+                rows[0].sonntagf = "- Frühstück Sonntag ";
+            } else {
+                rows[0].sonntagf = "";
+            }
+            if (rows[0].sonntagm) {
+                rows[0].sonntagm = "- Mittagessen Sonntag ";
+            } else {
+                rows[0].sonntagm = "";
+            }
+            if (rows[0].specialfood) {
+                rows[0].specialfood = "- Sonderkost ";
+            } else {
+                rows[0].specialfood = "";
+            }
+            if (rows[0].yoga) {
+                rows[0].yoga = "- Yoga";
+            } else {
+                rows[0].yoga = "";
+            }
+            if (rows[0].party) {
+                rows[0].party = "- Beitrag bunter Abend ";
+            } else {
+                rows[0].party = "";
+            }
+            if (!rows[0].mess) {
+                rows[0].mess = "";
+            } else {
+                rows[0].mess = `Eine Nachricht: ${req.body.message}`;
+            }
+            console.log("my new Obj after renaming", rows[0]);
+
+            try {
+                const mail = await sendEmail(
+                    rows[0].email,
+                    "Deine Anmeldung",
+                    `Liebe ${rows[0].first}! 
+            Danke für deine Anmeldung!
+            Vera wird sich bald bei dir melden. 
                 
-                Hier nochmal eine Zusammenfassung, was bisher bei uns angekommen ist: ${rows[0].freitaga}${rows[0].samstagf}${rows[0].samstagm}${rows[0].samstaga}${rows[0].sonntagf}${rows[0].sonntagm}${rows[0].specialfood}${rows[0].yoga}${rows[0].party}. Außerdem, falls du eine Nachricht gesendet hast, ist sie hier zu sehen: ${rows[0].mess}. Alles Liebe und vielen Dank!`
-            );
-
-            //send response to render the next stage
-            /*     
-        res.json({
-            successCode: true,
-        })
-        */
-        } catch (err) {
-            console.log("err in sendMail to visitor", err);
+            Hier nochmal eine Zusammenfassung, was bisher bei uns angekommen ist: 
+            ${rows[0].freitaga}
+            ${rows[0].samstagf}
+            ${rows[0].samstagm}
+            ${rows[0].samstaga}
+            ${rows[0].sonntagf}
+            ${rows[0].sonntagm}
+            ${rows[0].specialfood}
+            ${rows[0].yoga}
+            ${rows[0].party}
+            ${rows[0].mess} 
+            
+            
+            
+            Alles Liebe und vielen Dank!
+            
+            Das Schwanberg-Team`
+                );
+            } catch (err) {
+                console.log("err in sendMail to visitor", err);
+                res.json({
+                    success: false,
+                });
+            }
+            var mailOrga = "slender.trade+a@spicedling.email";
+            var nameOrga = "Vera";
         }
-        var mailOrga = "slender.trade+a@spicedling.email";
-        var nameOrga = "Vera";
-
         try {
             const mail = await sendEmail(
                 mailOrga,
@@ -719,21 +784,36 @@ app.post("/apply", async (req, res) => {
                 ${rows[0].first} ${rows[0].last} hat sich angemeldet! 
                 Ihre Mail-Adresse: ${rows[0].email}. 
                 
-                Hier eine Zusammenfassung, was bisher bei uns angekommen ist: ${rows[0].freitaga}${rows[0].samstagf}${rows[0].samstagm}${rows[0].samstaga}${rows[0].sonntagf}${rows[0].sonntagm}${rows[0].specialfood}${rows[0].yoga}${rows[0].party}. Außerdem, falls du eine Nachricht gesendet hast, ist sie hier zu sehen: ${rows[0].mess}. Alles Liebe und vielen Dank!`
+                Hier eine Zusammenfassung, was bisher bei uns angekommen ist: 
+                ${rows[0].freitaga}
+                ${rows[0].samstagf}
+                ${rows[0].samstagm}
+                ${rows[0].samstaga}
+                ${rows[0].sonntagf}
+                ${rows[0].sonntagm}
+                ${rows[0].specialfood}
+                ${rows[0].yoga}
+                ${rows[0].party}
+                ${rows[0].mess}. 
+                
+                Alles Liebe und vielen Dank!`
             );
-
-            //send response to render the next stage
-            /*     
-        res.json({
-            successCode: true,
-        })
-        */
+            res.json({
+                visitorSuccess: true,
+            });
         } catch (err) {
             console.log("err in sendMail to organizer", err);
+            res.json({
+                success: false,
+            });
         }
     } catch (err) {
         console.log("err in add visitor to table", err);
+        res.json({
+            success: false,
+        });
     }
+    //send response to render the next stage
 
     //slender.trade+a@spicedling.email 12345  (admin)
     //slender.trade+v@spicedling.email 12345  (Gast)

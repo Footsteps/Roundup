@@ -1,9 +1,8 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
-
 import data from "./data.json";
 //{data[0].nummer}
+import { FormattedMessage, FormattedHTMLMessage } from "react-intl";
 
 export default function Infos() {
     return (
@@ -11,90 +10,194 @@ export default function Infos() {
             <img src="./.jpg" alt="starter image" className="smImg" />
             <div className="container">
                 <div className="card">
-                    <h2 className="uberschrift2">{data[1].programm1}</h2>
+                    <h2 className="uberschrift2">
+                        <FormattedMessage id="programm1" />
+                    </h2>
                 </div>
                 <div id="profileInfo">
-                    <span className="text">{data[1].programm2}</span>
+                    <span className="text">
+                        <FormattedMessage id="programm2" />
+                    </span>
                     <div>
-                        <h3 className="uberschrift3">{data[1].freitag}</h3>
-                        <span className="text">{data[1].textFreitag}</span>
+                        <h3 className="uberschrift3">
+                            <FormattedMessage id="freitag" />
+                        </h3>
+                        <span className="text">
+                            <FormattedMessage id="textFreitag" />
+                        </span>
                     </div>
-                    <h3 className="uberschrift3">{data[1].samstag}</h3>
-                    <p className="text">{data[1].textSamstag}</p>
-                    <h3 className="uberschrift3">{data[1].sonntag}</h3>
-                    <p className="text">{data[1].textSonntag}</p>
+                    <h3 className="uberschrift3">
+                        <FormattedMessage id="samstag" />
+                    </h3>
+                    <p className="text">
+                        <FormattedMessage id="textSamstag" />
+                    </p>
+                    <h3 className="uberschrift3">
+                        <FormattedMessage id="sonntag" />
+                    </h3>
+                    <p className="text">
+                        <FormattedMessage id="textSonntag" />
+                    </p>
                     <div className="card">
-                        <h2 className="uberschrift2">{data[2].meetings}</h2>
+                        <h2 className="uberschrift2">
+                            <FormattedMessage id="meetings" />
+                        </h2>
                     </div>
-                    <p className="text">{data[2].meetingsText}</p>
-                    <p className="text">{data[2].alateen}</p>
-                    <p className="text">{data[2].ek}</p>
-                    <p className="text">{data[2].mann}</p>
-                    <p className="text">{data[2].frau}</p>
-                    <p className="text">{data[2].sonnen}</p>
-                    <p className="text">{data[2].morgen}</p>
+                    <p className="text">
+                        <FormattedMessage id="meetingsText" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="alateen" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="ek" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="mann" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="frau" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="sonnen" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="morgen" />
+                    </p>
                     <div className="card">
-                        <h2 className="uberschrift2">{data[3].ein}</h2>
+                        <h2 className="uberschrift2">
+                            <FormattedMessage id="ein" />
+                        </h2>
                     </div>
-                    <p className="text">{data[3].einText}</p>
+                    <p className="text">
+                        <FormattedMessage id="einText" />
+                    </p>
                 </div>
             </div>
             <div className="logistik container">
                 <div className="card">
-                    <h2 className="uberschrift2">{data[3].hotel}</h2>
+                    <h2 className="uberschrift2">
+                        <FormattedMessage id="hotel" />
+                    </h2>
                 </div>
                 <div id="profileInfo">
-                    <p className="text">{data[0].straße}</p>
-                    <p className="text">{data[0].ort}</p>
+                    <p className="text">
+                        <FormattedMessage id="straße" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="ort" />
+                    </p>
                     <div className="card">
-                        <h2 className="uberschrift2">{data[3].an}</h2>
+                        <h2 className="uberschrift2">
+                            <FormattedMessage id="an" />
+                        </h2>
                     </div>
-                    <h3 className="uberschrift3">{data[3].bahn}</h3>
-                    <p className="text">{data[3].bahnText}</p>
-                    <p className="text">{data[3].kitz}</p>
-                    <p className="text">{data[3].ip}</p>
-                    <h3 className="uberschrift3">{data[3].auto}</h3>
-                    <p className="text">{data[3].textAuto}</p>
+                    <h3 className="uberschrift3">
+                        <FormattedMessage id="bahn" />
+                    </h3>
+                    <p className="text">
+                        <FormattedMessage id="bahnText" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="kitz" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="ip" />
+                    </p>
+                    <h3 className="uberschrift3">
+                        <FormattedMessage id="auto" />
+                    </h3>
+                    <p className="text">
+                        <FormattedMessage id="textAuto" />
+                    </p>
                 </div>
             </div>
             <div className="preise container">
                 <div className="card">
-                    <h2 className="uberschrift2">{data[4].preise}</h2>
+                    <h2 className="uberschrift2">
+                        <FormattedMessage id="preise" />
+                    </h2>
                 </div>
                 <div id="profileInfo">
-                    <p className="text">{data[4].preiseText}</p>
-                    <p className="text">{data[4].ez}</p>
-                    <p className="preis">{data[4].ezp}</p>
-                    <p className="text">{data[4].ezd}</p>
-                    <p className="preis">{data[4].ezdp}</p>
-                    <p className="text">{data[4].dz}</p>
-                    <p className="preis">{data[4].dzp}</p>
-                    <p className="text">{data[4].dzd}</p>
-                    <p className="preis">{data[4].dzdp}</p>
-                    <p className="text">{data[4].gText}</p>
-                    <h3 className="uberschrift3">{data[4].angebot}</h3>
-                    <p className="preis">{data[4].angebotText}</p>
-                    <h3 className="uberschrift3">{data[4].kind}</h3>
-                    <p className="preis">{data[4].kindText}</p>
-                    <h3 className="uberschrift3">{data[4].storno}</h3>
-                    <p className="preis">{data[4].stornoText}</p>
+                    <p className="text">
+                        <FormattedMessage id="preiseText" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="ez" />
+                    </p>
+                    <p className="preis">
+                        <FormattedMessage id="ezp" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="ezd" />
+                    </p>
+                    <p className="preis">
+                        <FormattedMessage id="ezdp" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="dz" />
+                    </p>
+                    <p className="preis">
+                        <FormattedMessage id="dzp" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="dzd" />
+                    </p>
+                    <p className="preis">
+                        <FormattedMessage id="dzdp" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="gText" />
+                    </p>
+                    <h3 className="uberschrift3">
+                        <FormattedMessage id="angebot" />
+                    </h3>
+                    <p className="preis">
+                        <FormattedMessage id="angebotText" />
+                    </p>
+                    <h3 className="uberschrift3">
+                        <FormattedMessage id="kind" />
+                    </h3>
+                    <p className="preis">
+                        <FormattedMessage id="kindText" />
+                    </p>
+                    <h3 className="uberschrift3">
+                        <FormattedMessage id="storno" />
+                    </h3>
+                    <p className="preis">
+                        <FormattedMessage id="stornoText" />
+                    </p>
                 </div>
             </div>
             <div className="container">
                 <div id="profileInfo">
                     <div className="card">
-                        <h2 className="uberschrift2">{data[5].buchung}</h2>
+                        <h2 className="uberschrift2">
+                            <FormattedMessage id="buchung" />
+                        </h2>
                     </div>
 
-                    <span className="preis">{data[5].buchungTextFett}</span>
-                    <span className="text">{data[5].buchungText}</span>
+                    <span className="preis">
+                        <FormattedMessage id="buchungTextFett" />
+                    </span>
+                    <span className="text">
+                        <FormattedMessage id="buchungText" />
+                    </span>
 
                     <div className="card">
-                        <h2 className="uberschrift2">{data[5].konto}</h2>
+                        <h2 className="uberschrift2">
+                            <FormattedMessage id="konto" />
+                        </h2>
                     </div>
-                    <p className="text">{data[5].ke}</p>
-                    <p className="text">{data[5].kn}</p>
-                    <p className="text">{data[5].bic}</p>
+                    <p className="text">
+                        <FormattedMessage id="ke" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="kn" />
+                    </p>
+                    <p className="text">
+                        <FormattedMessage id="bic" />
+                    </p>
                 </div>
             </div>
 

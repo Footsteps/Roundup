@@ -16,6 +16,16 @@ import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 //store needs reducer
 import reducer from "./reducer";
+
+//translation stuff
+import { IntlProvider } from "react-intl";
+import de from "./translations/de.json";
+import en from "./translations/en.json";
+const messages = {
+    de: de,
+    en: en,
+};
+const language = navigator.language.split(/[-_]/)[0];
 //create store
 const store = createStore(
     reducer,
@@ -25,7 +35,11 @@ const store = createStore(
 //write code so that welcome only shows up when I am on welcome route
 let component;
 if (location.pathname === "/welcome") {
-    component = <Welcome />;
+    component = (
+        <IntlProvider locale={language} messages={messages[language]}>
+            <Welcome />;
+        </IntlProvider>
+    );
 } else {
     init(store);
     component = (

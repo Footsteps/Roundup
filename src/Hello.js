@@ -1,12 +1,14 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
+
 import Downloads from "./Downloads";
 import data from "./data.json";
 import Registration from "./Registration";
 import Login from "./Login";
 import Infos from "./Infos";
 import Apply from "./Apply";
+
+import { FormattedMessage } from "react-intl";
 
 export default function Hello() {
     return (
@@ -17,13 +19,17 @@ export default function Hello() {
                     <Link to="/infos">INFOS</Link>
                 </p>
                 <p>
-                    <Link to="/downloads">DOWNLOADS</Link>
+                    <Link to="/downloads">FLYER / MEETING SCHEDULE</Link>
                 </p>
                 <p>
-                    <Link to="/apply">ANMELDEN</Link>
+                    <Link to="/apply">
+                        <FormattedMessage id="BOOKING" />
+                    </Link>
                 </p>
                 <p>
-                    <Link to="/register">KONTO ANLEGEN</Link>
+                    <Link to="/register">
+                        <FormattedMessage id="CREATE AN ACCOUNT" />
+                    </Link>
                 </p>
                 <p>
                     <Link to="/login">LOGIN</Link>
@@ -31,13 +37,17 @@ export default function Hello() {
             </div>
             <div className="start">
                 <div className="wrapper title">
-                    <h2>{data[0].nummer} Al-Anon Treffen in Deutschland</h2>
+                    <h2>
+                        <FormattedMessage id="nummer" />
+                        <FormattedMessage id="Treffen" />
+                    </h2>
 
                     <h3>
-                        mit AA-Beteiligung. Deutsch- und englischsprachige
-                        Meetings.
+                        <FormattedMessage id="app.text" />
                     </h3>
-                    <h1>{data[0].thema}</h1>
+                    <h1>
+                        <FormattedMessage id="thema" />
+                    </h1>
                 </div>
             </div>
             <div>

@@ -4,6 +4,7 @@ import axios from "./axios";
 import { useStatefulFields } from "./useStatefulFields";
 import { useAuthSubmit } from "./useAuthSubmit";
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 export default function Registration() {
     //call imported hook-function
@@ -14,13 +15,13 @@ export default function Registration() {
 
     return (
         <div>
-            <h1>Willkommen zur Anmeldung fürs Chatboard!</h1>
+            <h1>
+                <FormattedMessage id="REGISTER" />
+            </h1>
             <img id="logoWelcome" src="./logo.jpg" />
 
             <div className="register box">
                 <form>
-                    <h3>Register here:</h3>
-
                     {error === "email" && (
                         <div>Sorry, email adress already exists!</div>
                     )}
@@ -30,7 +31,9 @@ export default function Registration() {
 
                     <div className="input-container">
                         <div className="registerField">
-                            <label htmlFor="first">Enter your first name</label>
+                            <label htmlFor="first">
+                                <FormattedMessage id="first" />
+                            </label>
                             <input
                                 onChange={handleChange}
                                 name="first"
@@ -39,7 +42,9 @@ export default function Registration() {
                             />
                         </div>
                         <div className="registerField">
-                            <label htmlFor="last">Enter your last name</label>
+                            <label htmlFor="last">
+                                <FormattedMessage id="last" />
+                            </label>
                             <input
                                 onChange={handleChange}
                                 name="last"
@@ -48,9 +53,7 @@ export default function Registration() {
                             />
                         </div>
                         <div className="registerField">
-                            <label htmlFor="email">
-                                Enter your email adress
-                            </label>
+                            <label htmlFor="email">E-Mail</label>
                             <input
                                 onChange={handleChange}
                                 name="email"
@@ -60,7 +63,7 @@ export default function Registration() {
                         </div>
                         <div className="registerField">
                             <label htmlFor="password">
-                                Enter your password
+                                <FormattedMessage id="password" />
                             </label>
                             <input
                                 onChange={handleChange}
@@ -70,7 +73,9 @@ export default function Registration() {
                             />
                         </div>
                     </div>
-                    <button onClick={handleSubmit}>submit</button>
+                    <button onClick={handleSubmit}>
+                        <FormattedMessage id="send" />
+                    </button>
                 </form>
             </div>
             <div className="nav">
@@ -78,13 +83,17 @@ export default function Registration() {
                     <Link to="/infos">INFOS</Link>
                 </p>
                 <p>
-                    <Link to="/downloads">DOWNLOADS</Link>
+                    <Link to="/downloads">FLYER / MEETING SCHEDULE</Link>
                 </p>
                 <p>
-                    <Link to="/apply">ANMELDEN</Link>
+                    <Link to="/apply">
+                        <FormattedMessage id="BOOKING" />
+                    </Link>
                 </p>
                 <p>
-                    <Link to="/register">KONTO ANLEGEN</Link>
+                    <Link to="/register">
+                        <FormattedMessage id="CREATE AN ACCOUNT" />
+                    </Link>
                 </p>
                 <p>
                     <Link to="/login">LOGIN</Link>

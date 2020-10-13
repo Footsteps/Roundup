@@ -17,13 +17,15 @@ import React, { useState } from "react";
 export function useStatefulFields() {
     const [value, setValue] = useState({});
 
+    //console.log("browser language", navigator.languages);
+
     const handleChange = (e) => {
         setValue({
             ...value,
             [e.target.name]: e.target.value,
+            language: navigator.languages[0],
         });
-        //console.log("value in useStatefulFields", value);
     };
-    console.log("value in useStatefulFields", value);
+    //console.log("value4", value);
     return [value, handleChange];
 }
