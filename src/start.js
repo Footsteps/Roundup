@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 //import HelloWorld from "./HelloWorld";
 import Welcome from "./Welcome";
@@ -17,34 +17,17 @@ import { composeWithDevTools } from "redux-devtools-extension";
 //store needs reducer
 import reducer from "./reducer";
 
-//translation stuff
-import { IntlProvider } from "react-intl";
-import de from "./translations/de.json";
-import en from "./translations/en.json";
-const messages = {
-    de: de,
-    en: en,
-};
-//const language = "en";
-const language = navigator.language.split(/[-_]/)[0];
-console.log("language", language);
-
-//const english = document.getElementById("english");
-//english.addEventListener("click", () => alert("Hi user!"));
 //create store
 const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(reduxPromise))
 );
 
+//console.log("language has changed!!! language in line 45", language);
 //write code so that welcome only shows up when I am on welcome route
 let component;
 if (location.pathname === "/welcome") {
-    component = (
-        <IntlProvider locale={language} messages={messages[language]}>
-            <Welcome />;
-        </IntlProvider>
-    );
+    component = <Welcome />;
 } else {
     init(store);
     component = (

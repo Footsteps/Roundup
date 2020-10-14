@@ -3,58 +3,74 @@ import { HashRouter, Route } from "react-router-dom";
 import Registration from "./Registration";
 import Hello from "./Hello";
 import Downloads from "./Downloads";
-import chooseLanguage from "./chooseLanguage";
+//import chooseLanguage from "./chooseLanguage";
 import Login from "./Login";
 import ResetPw from "./ResetPw";
 import Infos from "./Infos";
 import Apply from "./Apply";
 
-export default function Welcome() {
-    const [language, handleLanguage] = chooseLanguage();
+//translation stuff
+import { IntlProvider } from "react-intl";
+import de from "./translations/de.json";
+import en from "./translations/en.json";
+
+export default function Welcome({ getLanguage }) {
+    //const [language, handleLanguage] = chooseLanguage();
+    const messages = {
+        de: de,
+        en: en,
+    };
+
+    const defaultValue = navigator.language.split(/[-_]/)[0];
+    console.log(defaultValue);
+
+    const [language, setLanguage] = useState(defaultValue);
 
     useEffect(() => {
-        console.log("language has been clicked!!!!", language);
+        console.log("language in useeffect", language);
     }, [language]);
+
+    const handleLanguage = (e) => {
+        console.log("this language has been clicked: ", e.target.id);
+        setLanguage(e.target.id);
+        //console.log("language");
+    };
 
     return (
         <div>
-            <div
-                className="language"
-                id="english"
-                onClick={(e) => handleLanguage(e)}
-            >
+            <div className="language" id="en" onClick={handleLanguage}>
                 english
             </div>
-            <div
-                className="language"
-                id="deutsch"
-                onClick={(e) => handleLanguage(e)}
-            >
+            <div className="language" id="de" onClick={handleLanguage}>
                 deutsch
             </div>
-            <HashRouter>
-                <div>
-                    <Route exact path="/" component={Hello} />
-                    <Route path="/downloads">
-                        <Downloads />
-                    </Route>
-                    <Route path="/register">
-                        <Registration />
-                    </Route>
-                    <Route path="/login">
-                        <Login />
-                    </Route>
-                    <Route path="/reset">
-                        <ResetPw />
-                    </Route>
-                    <Route path="/infos">
-                        <Infos />
-                    </Route>
-                    <Route path="/apply">
-                        <Apply />
-                    </Route>
-                </div>
-            </HashRouter>
+            <IntlProvider locale={language} messages={messages[language]}>
+                <HashRouter>
+                    <div>
+                        <Route exact path="/">
+                            <Hello />
+                        </Route>
+                        <Route path="/downloads">
+                            <Downloads />
+                        </Route>
+                        <Route path="/register">
+                            <Registration />
+                        </Route>
+                        <Route path="/login">
+                            <Login />
+                        </Route>
+                        <Route path="/reset">
+                            <ResetPw />
+                        </Route>
+                        <Route path="/infos">
+                            <Infos />
+                        </Route>
+                        <Route path="/apply">
+                            <Apply />
+                        </Route>
+                    </div>
+                </HashRouter>
+            </IntlProvider>
         </div>
     );
 }

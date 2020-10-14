@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export function chooseLanguage() {
+export function useChooseLanguage() {
     const [language, setLanguage] = useState("");
 
     const handleLanguage = (e) => {
