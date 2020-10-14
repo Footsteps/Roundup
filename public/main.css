@@ -300,11 +300,44 @@ input {
 #logoApply {
     border-radius: 50%;
     width: 50%;
-    margin-top: 5%;
-    margin-left: -40%;
+    margin-top: 3%;
+    padding: 5%;
+}
+
+.test {
+    display: flex;
 }
 
 .apply {
-    margin-left: 60%;
-    margin-top: -70%;
+    margin-top: 8%;
+    width: 45%;
+    margin-bottom: 2%;
+}
+
+.messageApply {
+    width: 80%;
+}
+
+.email {
+}
+
+.language {
+    position: absolute;
+    border: 1px solid black;
+    padding-left: 1%;
+    padding-right: 1%;
+    margin-top: 2%;
+}
+
+#e {
+    margin-left: 2%;
+}
+
+#deutsch {
+    margin-left: 93%;
+}
+
+#english2 {
+    position: absolute;
+    margin-left: 10%;
 }

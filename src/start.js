@@ -25,7 +25,12 @@ const messages = {
     de: de,
     en: en,
 };
+//const language = "en";
 const language = navigator.language.split(/[-_]/)[0];
+console.log("language", language);
+
+//const english = document.getElementById("english");
+//english.addEventListener("click", () => alert("Hi user!"));
 //create store
 const store = createStore(
     reducer,
