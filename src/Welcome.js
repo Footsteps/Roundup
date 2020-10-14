@@ -3,7 +3,7 @@ import { HashRouter, Route } from "react-router-dom";
 import Registration from "./Registration";
 import Hello from "./Hello";
 import Downloads from "./Downloads";
-//import chooseLanguage from "./chooseLanguage";
+//import useChooseLanguage from "./chooseLanguage";
 import Login from "./Login";
 import ResetPw from "./ResetPw";
 import Infos from "./Infos";
@@ -14,20 +14,19 @@ import { IntlProvider } from "react-intl";
 import de from "./translations/de.json";
 import en from "./translations/en.json";
 
-export default function Welcome({ getLanguage }) {
-    //const [language, handleLanguage] = chooseLanguage();
+export default function Welcome() {
     const messages = {
         de: de,
         en: en,
     };
 
     const defaultValue = navigator.language.split(/[-_]/)[0];
-    console.log(defaultValue);
+    console.log("default value", defaultValue);
 
     const [language, setLanguage] = useState(defaultValue);
 
     useEffect(() => {
-        console.log("language in useeffect", language);
+        //console.log("language in useeffect", language);
     }, [language]);
 
     const handleLanguage = (e) => {
@@ -66,7 +65,7 @@ export default function Welcome({ getLanguage }) {
                             <Infos />
                         </Route>
                         <Route path="/apply">
-                            <Apply />
+                            <Apply dataWelcomeToApply={language} />
                         </Route>
                     </div>
                 </HashRouter>

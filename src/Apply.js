@@ -5,8 +5,10 @@ import { useAuthSubmit } from "./useAuthSubmit";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 
-export default function Apply() {
-    const [value, handleChange] = useStatefulFields();
+export default function Apply({ dataWelcomeToApply }) {
+    console.log("dataWelcomeToApply", dataWelcomeToApply);
+
+    const [value, handleChange] = useStatefulFields(dataWelcomeToApply);
     const [error, handleSubmit] = useAuthSubmit("/apply", value);
 
     return (

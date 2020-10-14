@@ -14,18 +14,19 @@ the spread operator copies. it copies the old state object and than add the new 
 
 import React, { useState } from "react";
 
-export function useStatefulFields() {
+export function useStatefulFields(dataWelcomeToApply) {
     const [value, setValue] = useState({});
 
+    //console.log("dataWelcomeToApply", dataWelcomeToApply);
     //console.log("browser language", navigator.languages);
 
     const handleChange = (e) => {
         setValue({
             ...value,
             [e.target.name]: e.target.value,
-            language: navigator.languages[0],
+            language: dataWelcomeToApply,
         });
     };
-    //console.log("value4", value);
+    console.log("value4", value);
     return [value, handleChange];
 }
