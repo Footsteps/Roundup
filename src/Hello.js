@@ -10,7 +10,8 @@ import Apply from "./Apply";
 
 import { FormattedMessage } from "react-intl";
 
-export default function Hello() {
+export default function Hello({ registered }) {
+    console.log("registered in hello", registered);
     return (
         <div>
             <img src="./12.jpg" className="bgImg" />

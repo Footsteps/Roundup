@@ -9,6 +9,8 @@ import ResetPw from "./ResetPw";
 import Infos from "./Infos";
 import Apply from "./Apply";
 
+//recaptcha stuff
+import Recaptcha from "react-google-recaptcha";
 //translation stuff
 import { IntlProvider } from "react-intl";
 import de from "./translations/de.json";
@@ -21,19 +23,28 @@ export default function Welcome() {
     };
 
     const defaultValue = navigator.language.split(/[-_]/)[0];
-    console.log("default value", defaultValue);
+    //console.log("default value", defaultValue);
 
     const [language, setLanguage] = useState(defaultValue);
 
+    const [registered, setRegistered] = useState(false);
+
+    console.log("registered before useEffect", registered);
     useEffect(() => {
         //console.log("language in useeffect", language);
-    }, [language]);
+        console.log("registered in useEffect", registered);
+    }, [language, registered]);
 
     const handleLanguage = (e) => {
-        console.log("this language has been clicked: ", e.target.id);
+        //console.log("this language has been clicked: ", e.target.id);
         setLanguage(e.target.id);
         //console.log("language");
     };
+    const register = (arg) => {
+        console.log("arg in register", arg);
+        setRegistered(true);
+    };
+    console.log("registered after useEffect", registered);
 
     return (
         <div>
@@ -47,8 +58,9 @@ export default function Welcome() {
                 <HashRouter>
                     <div>
                         <Route exact path="/">
-                            <Hello />
+                            <Hello registered={registered} />
                         </Route>
+
                         <Route path="/downloads">
                             <Downloads />
                         </Route>
@@ -65,7 +77,10 @@ export default function Welcome() {
                             <Infos />
                         </Route>
                         <Route path="/apply">
-                            <Apply dataWelcomeToApply={language} />
+                            <Apply
+                                dataWelcomeToApply={language}
+                                register={register}
+                            />
                         </Route>
                     </div>
                 </HashRouter>

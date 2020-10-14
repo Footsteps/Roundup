@@ -5,11 +5,15 @@ import { useAuthSubmit } from "./useAuthSubmit";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 
-export default function Apply({ dataWelcomeToApply }) {
-    console.log("dataWelcomeToApply", dataWelcomeToApply);
+//recaptcha stuff
+import Recaptcha from "react-google-recaptcha";
+
+export default function Apply({ dataWelcomeToApply, register }) {
+    //console.log("dataWelcomeToApply", dataWelcomeToApply);
+    //console.log("register in Aplly", register);
 
     const [value, handleChange] = useStatefulFields(dataWelcomeToApply);
-    const [error, handleSubmit] = useAuthSubmit("/apply", value);
+    const [error, handleSubmit] = useAuthSubmit("/apply", value, register);
 
     return (
         <div>

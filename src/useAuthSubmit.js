@@ -15,11 +15,12 @@ give this function access to what the user typed in --> call it in registration 
 import React, { useState } from "react";
 import axios from "./axios";
 
-export function useAuthSubmit(route, value) {
+export function useAuthSubmit(route, value, register) {
     const [error, setError] = useState(false);
+    //console.log("register in useAuthSubmit", register);
 
     const handleSubmit = (e) => {
-        console.log("value in handleSubmit: ", value);
+        //console.log("value in handleSubmit: ", value);
         e.preventDefault();
         //console.log("browser language", navigator.languages);
 
@@ -32,8 +33,10 @@ export function useAuthSubmit(route, value) {
                 console.log("email already exists!!!");
                 setError("email");
             } else if (resp.data.visitorSuccess) {
-                setError("message");
-                location.replace("/");
+                //setError("message");
+                //console.log("calling register now");
+                register("register says somebody registered");
+                //location.replace("/");
             } else {
                 console.log("err happened!!!");
                 //if something breaks
