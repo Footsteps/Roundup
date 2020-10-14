@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 
 export function chooseLanguage() {
-    const [language, setLanguage] = useState({});
-
-    //console.log("browser language", navigator.languages);
+    const [language, setLanguage] = useState("");
 
     const handleLanguage = (e) => {
-        console.log("e.target.value in handleLanguage", e.target.value);
+        console.log("this language has been clicked: ", e.target.id);
+        setLanguage(e.target.id);
+        console.log("language", language);
     };
-    //console.log("value4", value);
     return [language, handleLanguage];
 }

@@ -329,15 +329,12 @@ input {
     margin-top: 2%;
 }
 
-#e {
+#english {
     margin-left: 2%;
+    z-index: 293849823;
 }
 
 #deutsch {
     margin-left: 93%;
-}
-
-#english2 {
-    position: absolute;
-    margin-left: 10%;
+    z-index: 293849823;
 }
