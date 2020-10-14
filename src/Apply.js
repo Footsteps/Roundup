@@ -1,20 +1,36 @@
-import React from "react";
+/*Site key: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+Secret key: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+*/
+
+import React, { useState } from "react";
 
 import { useStatefulFields } from "./useStatefulFields";
 import { useAuthSubmit } from "./useAuthSubmit";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-
+import axios from "./axios";
 //recaptcha stuff
-import Recaptcha from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Apply({ dataWelcomeToApply, register }) {
     //console.log("dataWelcomeToApply", dataWelcomeToApply);
     //console.log("register in Aplly", register);
+    const [verified, setVerified] = useState(false);
 
     const [value, handleChange] = useStatefulFields(dataWelcomeToApply);
-    const [error, handleSubmit] = useAuthSubmit("/apply", value, register);
+    const [error, handleSubmit] = useAuthSubmit(
+        "/apply",
+        value,
+        register,
+        verified
+    );
 
+    const onChange = (value) => {
+        console.log("Captcha value:", value);
+        axios.post("/captcha", { value: value }).then((resp) => {
+            console.log("resp from captcha submit", resp);
+        });
+    };
     return (
         <div>
             <h1>
@@ -34,6 +50,10 @@ export default function Apply({ dataWelcomeToApply, register }) {
                                 <FormattedMessage id="errorOther" />
                             </div>
                         )}
+                        {error === "verified" && (
+                            <div>Please verify that you are a human</div>
+                        )}
+
                         <div className="input-container">
                             <div className="test">
                                 <div className="registerField">
@@ -180,6 +200,11 @@ export default function Apply({ dataWelcomeToApply, register }) {
                             <button onClick={handleSubmit}>
                                 <FormattedMessage id="send" />
                             </button>
+
+                            <ReCAPTCHA
+                                sitekey="6LfBXdcZAAAAAClSmS5XjzXJOCK7WFCcwtw7aeJE"
+                                onChange={onChange}
+                            />
                         </div>
                     </form>
                 </div>

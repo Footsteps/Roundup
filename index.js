@@ -90,6 +90,43 @@ if (process.env.NODE_ENV != "production") {
 //add cookie-session middleware :)
 //refer to petition
 
+//add captcha stuff
+require("es6-promise").polyfill();
+require("isomorphic-fetch");
+
+//////////////////CAPTCHA////////////////////////////////////////////////////////
+app.post("/captcha", async (req, res) => {
+    console.log("captcha got hit,", req.body.value);
+    const RECAPTCHA_SERVER_KEY = process.env.RECAPTCHA_SERVER_KEY;
+    const humanKey = req.body.value;
+
+    try {
+        const isHuman = await fetch(
+            `https://www.google.com/recaptcha/api/siteverify`,
+            {
+                method: "post",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type":
+                        "application/x-www-form-urlencoded; charset=utf-8",
+                },
+                body: `secret=${RECAPTCHA_SERVER_KEY}&response=${humanKey}`,
+            }
+        );
+        console.log(typeof res);
+        (res) => res.json();
+        (json) => json.success;
+        if (humanKey === null || !isHuman) {
+            console.log("not hujman!!!!");
+        }
+    } catch (e) {
+        console.log("error in checking if human");
+    }
+
+    // The code below will run only after the reCAPTCHA is succesfully validated.
+    //console.log("SUCCESS!");
+});
+
 ///////////////////////WELCOME ROUTE///////////////////////////////////////////////
 
 app.get("/welcome", (req, res) => {

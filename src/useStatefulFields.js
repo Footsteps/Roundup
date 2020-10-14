@@ -27,6 +27,6 @@ export function useStatefulFields(dataWelcomeToApply) {
             language: dataWelcomeToApply,
         });
     };
-    console.log("value4", value);
+    //console.log("value4", value);
     return [value, handleChange];
 }

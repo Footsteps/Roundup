@@ -15,34 +15,40 @@ give this function access to what the user typed in --> call it in registration 
 import React, { useState } from "react";
 import axios from "./axios";
 
-export function useAuthSubmit(route, value, register) {
+export function useAuthSubmit(route, value, register, verified) {
     const [error, setError] = useState(false);
     //console.log("register in useAuthSubmit", register);
+    console.log("verified in useAuthSubmit", verified);
 
     const handleSubmit = (e) => {
-        //console.log("value in handleSubmit: ", value);
         e.preventDefault();
-        //console.log("browser language", navigator.languages);
+        if (!verified) {
+            console.log("verified is false!!!");
+            setError("verified");
+        } else {
+            //console.log("browser language", navigator.languages);
 
-        axios.post(route, value).then((resp) => {
-            console.log("resp from handleSubmit", resp);
+            axios.post(route, value).then((resp) => {
+                console.log("resp from handleSubmit", resp);
 
-            if (resp.data.success) {
-                location.replace("/");
-            } else if (resp.data.email) {
-                console.log("email already exists!!!");
-                setError("email");
-            } else if (resp.data.visitorSuccess) {
-                //setError("message");
-                //console.log("calling register now");
-                register("register says somebody registered");
-                //location.replace("/");
-            } else {
-                console.log("err happened!!!");
-                //if something breaks
-                setError("other");
-            }
-        });
+                if (resp.data.success) {
+                    location.replace("/");
+                } else if (resp.data.email) {
+                    console.log("email already exists!!!");
+                    setError("email");
+                } else if (resp.data.visitorSuccess) {
+                    //setError("message");
+                    //console.log("calling register now");
+                    register("register says somebody registered");
+                    //location.replace("/");
+                } else {
+                    console.log("err happened!!!");
+                    //if something breaks
+                    setError("other");
+                }
+            });
+        }
+        //console.log("value in handleSubmit: ", value);
     };
     return [error, handleSubmit];
 }
