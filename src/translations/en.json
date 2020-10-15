@@ -77,5 +77,6 @@
     "reset": "Click here to reset your password",
     "REGISTER": "Registration for the participants lounge!",
     "errorEmail": "Oh! Sorry, somebody else already booked with this email-adress",
-    "errorOther": "Oh, something went wrong. Please try again."
+    "errorOther": "Oh, something went wrong. Please try again.",
+    "errorCaptcha": "Please verify that you are a human"
 }

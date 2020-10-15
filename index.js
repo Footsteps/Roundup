@@ -97,12 +97,9 @@ const request = require("request");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-require("es6-promise").polyfill();
-require("isomorphic-fetch");
-
 //////////////////CAPTCHA////////////////////////////////////////////////////////
 app.post("/captcha", (req, res) => {
-    console.log("captcha got hit,", req.body.value);
+    console.log("captcha got hit,", req.body);
     if (
         req.body.value === undefined ||
         req.body.value === "" ||
@@ -120,17 +117,16 @@ app.post("/captcha", (req, res) => {
     //make request to verify url
     request(verifyUrl, (err, response, body) => {
         body = JSON.parse(body);
-        console.log("body in request", body);
+        console.log("body in request", body.success);
         //if not successful: return object
         if (body.success !== undefined && !body.success) {
             return res.json({
                 captcha: false,
                 msg: "failed captcha verification",
             });
+        } else {
+            return res.json({ captcha: true, msg: "captcha passed" });
         }
-        //if successful
-        console.log("reponsponse from request", response);
-        //return res.json({ captcha: true, msg: "captcha passed" });
     });
 });
 

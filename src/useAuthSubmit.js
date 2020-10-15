@@ -22,6 +22,7 @@ export function useAuthSubmit(route, value, register, verified) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (!verified) {
             console.log("verified is false!!!");
             setError("verified");
@@ -40,7 +41,7 @@ export function useAuthSubmit(route, value, register, verified) {
                     //setError("message");
                     //console.log("calling register now");
                     register("register says somebody registered");
-                    //location.replace("/");
+                    location.replace("/");
                 } else {
                     console.log("err happened!!!");
                     //if something breaks

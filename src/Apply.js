@@ -27,13 +27,19 @@ export default function Apply({ dataWelcomeToApply, register }) {
 
     const onChange = (value) => {
         console.log("Captcha value:", value);
+
         axios
-            .post("/captcha", { value: value })
-            .then((res) => {
-                console.log("response from captcha", res);
+            .post("/captcha", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                value: value,
             })
-            .then((data) => {
-                console.log(data);
+            .then((res) => {
+                console.log("response from captcha", res.data);
+                if (res.data.captcha) {
+                    console.log("human!!!");
+                    setVerified(true);
+                }
             });
     };
     return (
@@ -53,6 +59,11 @@ export default function Apply({ dataWelcomeToApply, register }) {
                         {error === "other" && (
                             <div>
                                 <FormattedMessage id="errorOther" />
+                            </div>
+                        )}
+                        {error === "verified" && (
+                            <div>
+                                <FormattedMessage id="errorCaptcha" />
                             </div>
                         )}
 
