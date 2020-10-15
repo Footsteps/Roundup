@@ -53,6 +53,11 @@ export default function Apply({ dataWelcomeToApply, register }) {
                 <img id="logoApply" src="./11.jpg" />
                 <div className="box apply">
                     <form id="subscribeform">
+                        <ReCAPTCHA
+                            className="g-recaptcha"
+                            sitekey="6LfBXdcZAAAAAClSmS5XjzXJOCK7WFCcwtw7aeJE"
+                            onChange={onChange}
+                        />
                         {error === "email" && (
                             <div>
                                 <FormattedMessage id="errorEmail" />
@@ -219,12 +224,6 @@ export default function Apply({ dataWelcomeToApply, register }) {
                             <button onClick={handleSubmit}>
                                 <FormattedMessage id="send" />
                             </button>
-
-                            <ReCAPTCHA
-                                className="g-recaptcha"
-                                sitekey="6LfBXdcZAAAAAClSmS5XjzXJOCK7WFCcwtw7aeJE"
-                                onChange={onChange}
-                            />
                         </div>
                     </form>
                 </div>
