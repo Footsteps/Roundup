@@ -22,7 +22,7 @@ export default function Welcome() {
         de: de,
         en: en,
     };
-    let history = useHistory();
+
     const defaultValue = navigator.language.split(/[-_]/)[0];
     //console.log("default value", defaultValue);
 

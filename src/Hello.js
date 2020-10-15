@@ -22,7 +22,7 @@ export default function Hello({ registered }) {
                     <Link to="/infos">INFOS</Link>
                 </p>
                 <p>
-                    <Link to="/downloads">FLYER / MEETING SCHEDULE</Link>
+                    <Link to="/downloads">FLYER / MEETINGS</Link>
                 </p>
                 <p>
                     <Link to="/apply">

@@ -99,7 +99,7 @@ app.use(bodyParser.json());
 
 //////////////////CAPTCHA////////////////////////////////////////////////////////
 app.post("/captcha", (req, res) => {
-    console.log("captcha got hit,", req.body);
+    //console.log("captcha got hit,", req.body);
     if (
         req.body.value === undefined ||
         req.body.value === "" ||
@@ -117,7 +117,7 @@ app.post("/captcha", (req, res) => {
     //make request to verify url
     request(verifyUrl, (err, response, body) => {
         body = JSON.parse(body);
-        console.log("body in request", body.success);
+        //console.log("body in request", body.success);
         //if not successful: return object
         if (body.success !== undefined && !body.success) {
             return res.json({
@@ -873,7 +873,7 @@ app.get("*", function (req, res) {
 });
 ///////////////////////////////////////////////////////////////////////////////
 
-server.listen(8080, function () {
+server.listen(process.env.PORT || 8080, function () {
     console.log("I'm here for you :)");
 });
 
