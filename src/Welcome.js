@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { HashRouter, Route } from "react-router-dom";
+import { HashRouter, Route, useHistory } from "react-router-dom";
 import Registration from "./Registration";
 import Hello from "./Hello";
 import Downloads from "./Downloads";
@@ -8,6 +8,9 @@ import Login from "./Login";
 import ResetPw from "./ResetPw";
 import Infos from "./Infos";
 import Apply from "./Apply";
+
+//trying history stuff
+//import {  } from "react-router-dom";
 
 //translation stuff
 import { IntlProvider } from "react-intl";
@@ -19,7 +22,7 @@ export default function Welcome() {
         de: de,
         en: en,
     };
-
+    let history = useHistory();
     const defaultValue = navigator.language.split(/[-_]/)[0];
     //console.log("default value", defaultValue);
 

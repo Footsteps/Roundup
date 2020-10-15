@@ -14,13 +14,17 @@ give this function access to what the user typed in --> call it in registration 
 
 import React, { useState } from "react";
 import axios from "./axios";
+import { useHistory } from "react-router-dom";
 
 export function useAuthSubmit(route, value, register, verified) {
+    const history = useHistory();
+    console.log("history in useAuthSubmit", history);
     const [error, setError] = useState(false);
     //console.log("register in useAuthSubmit", register);
-    console.log("verified in useAuthSubmit", verified);
+    //console.log("verified in useAuthSubmit", verified);
 
     const handleSubmit = (e) => {
+        //console.log("history in useAuthSubmit", history);
         e.preventDefault();
 
         if (!verified) {
@@ -41,7 +45,7 @@ export function useAuthSubmit(route, value, register, verified) {
                     //setError("message");
                     //console.log("calling register now");
                     register("register says somebody registered");
-                    location.replace("/");
+                    history.push("/");
                 } else {
                     console.log("err happened!!!");
                     //if something breaks

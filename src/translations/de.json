@@ -78,5 +78,6 @@
     "REGISTER": "Willkommen zur Anmeldung für den Teilnehmer*innenbereich!",
     "errorEmail": "Oh! Mit dieser E-Mail-Adresse gibt es bereits eine Anmeldung!",
     "errorOther": "Oh, leider ist etwas schief gegangen. Bitte versuch es noch einmal",
-    "errorCaptcha": "Bitte bestätige, dass du ein Mensch bist :)"
+    "errorCaptcha": "Bitte bestätige, dass du ein Mensch bist :)",
+    "yay": "DANKE FÜR DEINE ANMELDUNG BEIM..."
 }

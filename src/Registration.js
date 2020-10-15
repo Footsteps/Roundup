@@ -1,18 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "./axios";
 
 import { useStatefulFields } from "./useStatefulFields";
 import { useAuthSubmit } from "./useAuthSubmit";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Registration() {
     //call imported hook-function
+    const [verified, setVerified] = useState(false);
     const [value, handleChange] = useStatefulFields();
-    const [error, handleSubmit] = useAuthSubmit("/register", value);
+    const [error, handleSubmit] = useAuthSubmit("/register", value, verified);
 
     console.log("errr", error);
+    const onChange = (value) => {
+        console.log("Captcha value:", value);
 
+        axios
+            .post("/captcha", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                value: value,
+            })
+            .then((res) => {
+                console.log("response from captcha", res.data);
+                if (res.data.captcha) {
+                    console.log("human!!!");
+                    setVerified(true);
+                }
+            });
+    };
     return (
         <div>
             <h1>
@@ -27,6 +45,11 @@ export default function Registration() {
                     )}
                     {error === "other" && (
                         <div>Sorry, something went wrong!</div>
+                    )}
+                    {error === "verified" && (
+                        <div>
+                            <FormattedMessage id="errorCaptcha" />
+                        </div>
                     )}
 
                     <div className="input-container">
@@ -76,6 +99,11 @@ export default function Registration() {
                     <button onClick={handleSubmit}>
                         <FormattedMessage id="send" />
                     </button>
+                    <ReCAPTCHA
+                        className="g-recaptcha"
+                        sitekey="6LfBXdcZAAAAAClSmS5XjzXJOCK7WFCcwtw7aeJE"
+                        onChange={onChange}
+                    />
                 </form>
             </div>
             <div className="nav">

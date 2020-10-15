@@ -1,4 +1,4 @@
---psql -d socialnetwork -f chat.sql;
+--psql -d roundup -f chat.sql;
 
 DROP TABLE IF EXISTS chat;
 

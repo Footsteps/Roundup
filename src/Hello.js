@@ -1,8 +1,8 @@
 import React from "react";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch, Link, useLocation } from "react-router-dom";
 
 import Downloads from "./Downloads";
-import data from "./data.json";
+
 import Registration from "./Registration";
 import Login from "./Login";
 import Infos from "./Infos";
@@ -11,6 +11,8 @@ import Apply from "./Apply";
 import { FormattedMessage } from "react-intl";
 
 export default function Hello({ registered }) {
+    const location = useLocation();
+    console.log("location", location);
     console.log("registered in hello", registered);
     return (
         <div>
@@ -38,6 +40,11 @@ export default function Hello({ registered }) {
             </div>
             <div className="start">
                 <div className="wrapper title">
+                    {registered && (
+                        <h2 id="yay">
+                            <FormattedMessage id="yay" />
+                        </h2>
+                    )}
                     <h2>
                         <FormattedMessage id="nummer" />
                         <FormattedMessage id="Treffen" />

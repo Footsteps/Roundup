@@ -1,4 +1,4 @@
-  --psql -d socialnetwork -f friendships.sql;
+  --psql -d roundup -f friendships.sql;
 
   DROP TABLE IF EXISTS friendships;
 
@@ -6,5 +6,5 @@
       id SERIAL PRIMARY KEY,
       sender_id INT REFERENCES users(id) NOT NULL,
       recipient_id INT REFERENCES users(id) NOT NULL,
-      accepted BOOLEAN DEFAULT false
+    accepted BOOLEAN DEFAULT false
   );

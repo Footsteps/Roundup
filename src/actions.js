@@ -24,8 +24,8 @@ export async function acceptFriendRequest(id) {
     console.log("acceptFriendRequest is running!!!!", id);
 
     const { data } = await axios.post("/accept-friend-request/" + id);
-    console.log("data from post req to ACCEPT FRIEND IN ACTIONS.JS", data);
-    console.log("data from post req to ACCEPT FRIEND IN ACTIONS.JS", data.id);
+    //console.log("data from post req to ACCEPT FRIEND IN ACTIONS.JS", data);
+    //console.log("data from post req to ACCEPT FRIEND IN ACTIONS.JS", data.id);
 
     return { type: "ACCEPT_FRIEND_REQUEST", id: data.id };
 }

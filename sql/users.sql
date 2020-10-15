@@ -1,4 +1,4 @@
---psql -d socialnetwork -f users.sql;
+--psql -d roundup -f users.sql;
 
 DROP TABLE IF EXISTS users;
 

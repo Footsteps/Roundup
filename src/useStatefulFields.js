@@ -21,6 +21,7 @@ export function useStatefulFields(dataWelcomeToApply) {
     //console.log("browser language", navigator.languages);
 
     const handleChange = (e) => {
+        e.preventDefault();
         setValue({
             ...value,
             [e.target.name]: e.target.value,
@@ -28,5 +29,6 @@ export function useStatefulFields(dataWelcomeToApply) {
         });
     };
     //console.log("value4", value);
+
     return [value, handleChange];
 }

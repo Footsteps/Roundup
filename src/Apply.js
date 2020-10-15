@@ -14,7 +14,9 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Apply({ dataWelcomeToApply, register }) {
     //console.log("dataWelcomeToApply", dataWelcomeToApply);
-    //console.log("register in Aplly", register);
+    //const history = useHistory();
+    //console.log("history in apply", history);
+    //console.log("register in Apply", register);
     const [verified, setVerified] = useState(false);
 
     const [value, handleChange] = useStatefulFields(dataWelcomeToApply);
@@ -76,6 +78,7 @@ export default function Apply({ dataWelcomeToApply, register }) {
                                             onChange={handleChange}
                                             name="first"
                                             type="text"
+                                            key="first"
                                         />
                                     </label>
                                 </div>
@@ -86,6 +89,7 @@ export default function Apply({ dataWelcomeToApply, register }) {
                                             onChange={handleChange}
                                             name="last"
                                             type="text"
+                                            key="last"
                                         />
                                     </label>
                                 </div>
@@ -98,6 +102,7 @@ export default function Apply({ dataWelcomeToApply, register }) {
                                         onChange={handleChange}
                                         name="email"
                                         type="text"
+                                        key="email"
                                     />
                                 </label>
                             </div>
@@ -109,6 +114,7 @@ export default function Apply({ dataWelcomeToApply, register }) {
                                         name="freitagA"
                                         type="checkbox"
                                         onChange={handleChange}
+                                        key="freitagA"
                                     />
                                 </label>
                             </div>

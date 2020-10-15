@@ -6,7 +6,7 @@ CREATE TABLE vis (
     id SERIAL PRIMARY KEY,
     first VARCHAR NOT NULL,
     last VARCHAR NOT NULL,
-    email VARCHAR NOT NULL UNIQUE,
+    email VARCHAR NOT NULL,
     freitagA VARCHAR,
     samstagF VARCHAR,
     samstagM VARCHAR,
