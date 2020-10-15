@@ -27,9 +27,14 @@ export default function Apply({ dataWelcomeToApply, register }) {
 
     const onChange = (value) => {
         console.log("Captcha value:", value);
-        axios.post("/captcha", { value: value }).then((resp) => {
-            console.log("resp from captcha submit", resp);
-        });
+        axios
+            .post("/captcha", { value: value })
+            .then((res) => {
+                console.log("response from captcha", res);
+            })
+            .then((data) => {
+                console.log(data);
+            });
     };
     return (
         <div>
@@ -39,7 +44,7 @@ export default function Apply({ dataWelcomeToApply, register }) {
             <div className="test">
                 <img id="logoApply" src="./11.jpg" />
                 <div className="box apply">
-                    <form>
+                    <form id="subscribeform">
                         {error === "email" && (
                             <div>
                                 <FormattedMessage id="errorEmail" />
@@ -49,9 +54,6 @@ export default function Apply({ dataWelcomeToApply, register }) {
                             <div>
                                 <FormattedMessage id="errorOther" />
                             </div>
-                        )}
-                        {error === "verified" && (
-                            <div>Please verify that you are a human</div>
                         )}
 
                         <div className="input-container">
@@ -202,6 +204,7 @@ export default function Apply({ dataWelcomeToApply, register }) {
                             </button>
 
                             <ReCAPTCHA
+                                className="g-recaptcha"
                                 sitekey="6LfBXdcZAAAAAClSmS5XjzXJOCK7WFCcwtw7aeJE"
                                 onChange={onChange}
                             />

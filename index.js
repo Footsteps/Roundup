@@ -91,40 +91,47 @@ if (process.env.NODE_ENV != "production") {
 //refer to petition
 
 //add captcha stuff
+const secrets = require("./secrets");
+const bodyParser = require("body-parser");
+const request = require("request");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 require("es6-promise").polyfill();
 require("isomorphic-fetch");
 
 //////////////////CAPTCHA////////////////////////////////////////////////////////
-app.post("/captcha", async (req, res) => {
+app.post("/captcha", (req, res) => {
     console.log("captcha got hit,", req.body.value);
-    const RECAPTCHA_SERVER_KEY = process.env.RECAPTCHA_SERVER_KEY;
-    const humanKey = req.body.value;
-
-    try {
-        const isHuman = await fetch(
-            `https://www.google.com/recaptcha/api/siteverify`,
-            {
-                method: "post",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type":
-                        "application/x-www-form-urlencoded; charset=utf-8",
-                },
-                body: `secret=${RECAPTCHA_SERVER_KEY}&response=${humanKey}`,
-            }
-        );
-        console.log(typeof res);
-        (res) => res.json();
-        (json) => json.success;
-        if (humanKey === null || !isHuman) {
-            console.log("not hujman!!!!");
-        }
-    } catch (e) {
-        console.log("error in checking if human");
+    if (
+        req.body.value === undefined ||
+        req.body.value === "" ||
+        req.body.value === null
+    ) {
+        return res.json({ captcha: false, msg: "please select captcha" });
     }
 
-    // The code below will run only after the reCAPTCHA is succesfully validated.
-    //console.log("SUCCESS!");
+    const secretKey = secrets.RECAPTCHA_SECRET;
+    //console.log(RECAPTCHA_SERVER_KEY);
+    const humanKey = req.body.value;
+    //verify url
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${humanKey}&remoteip=${req.connection.remoteAdress}`;
+
+    //make request to verify url
+    request(verifyUrl, (err, response, body) => {
+        body = JSON.parse(body);
+        console.log("body in request", body);
+        //if not successful: return object
+        if (body.success !== undefined && !body.success) {
+            return res.json({
+                captcha: false,
+                msg: "failed captcha verification",
+            });
+        }
+        //if successful
+        console.log("reponsponse from request", response);
+        //return res.json({ captcha: true, msg: "captcha passed" });
+    });
 });
 
 ///////////////////////WELCOME ROUTE///////////////////////////////////////////////

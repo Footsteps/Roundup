@@ -9,8 +9,6 @@ import ResetPw from "./ResetPw";
 import Infos from "./Infos";
 import Apply from "./Apply";
 
-//recaptcha stuff
-import Recaptcha from "react-google-recaptcha";
 //translation stuff
 import { IntlProvider } from "react-intl";
 import de from "./translations/de.json";
@@ -54,37 +52,53 @@ export default function Welcome() {
             <div className="language" id="de" onClick={handleLanguage}>
                 deutsch
             </div>
-            <IntlProvider locale={language} messages={messages[language]}>
-                <HashRouter>
-                    <div>
-                        <Route exact path="/">
-                            <Hello registered={registered} />
-                        </Route>
-
-                        <Route path="/downloads">
-                            <Downloads />
-                        </Route>
-                        <Route path="/register">
-                            <Registration />
-                        </Route>
-                        <Route path="/login">
-                            <Login />
-                        </Route>
-                        <Route path="/reset">
-                            <ResetPw />
-                        </Route>
-                        <Route path="/infos">
-                            <Infos />
-                        </Route>
-                        <Route path="/apply">
-                            <Apply
-                                dataWelcomeToApply={language}
-                                register={register}
+            <div>
+                <IntlProvider locale={language} messages={messages[language]}>
+                    <HashRouter>
+                        <div>
+                            <Route
+                                exact
+                                path="/"
+                                render={() => (
+                                    <Hello
+                                        dataWelcomeToApply={language}
+                                        registered={registered}
+                                    />
+                                )}
                             />
-                        </Route>
-                    </div>
-                </HashRouter>
-            </IntlProvider>
+
+                            <Route
+                                exact
+                                path="/downloads"
+                                component={Downloads}
+                            />
+
+                            <Route
+                                exact
+                                path="/register"
+                                component={Registration}
+                            />
+
+                            <Route exact path="/login" component={Login} />
+
+                            <Route exact path="/reset" component={ResetPw} />
+
+                            <Route path="/infos" component={Infos} />
+
+                            <Route
+                                exact
+                                path="/apply"
+                                render={() => (
+                                    <Apply
+                                        dataWelcomeToApply={language}
+                                        register={register}
+                                    />
+                                )}
+                            />
+                        </div>
+                    </HashRouter>
+                </IntlProvider>
+            </div>
         </div>
     );
 }
