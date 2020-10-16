@@ -91,7 +91,13 @@ if (process.env.NODE_ENV != "production") {
 //refer to petition
 
 //add captcha stuff
-const secrets = require("./secrets");
+let secrets;
+if (process.env.NODE_ENV) {
+    secrets = process.env.CAPTCHA_SECRET; // in prod the secrets are environment variables
+} else {
+    secrets = require("./secrets"); // in dev they are in secrets.json which is listed in .gitignore
+}
+
 const bodyParser = require("body-parser");
 const request = require("request");
 app.use(bodyParser.urlencoded({ extended: false }));

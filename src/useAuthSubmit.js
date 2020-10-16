@@ -30,6 +30,7 @@ export function useAuthSubmit(route, value, register, verified) {
         if (!verified) {
             console.log("verified is false!!!");
             setError("verified");
+            history.push("/apply");
         } else {
             //console.log("browser language", navigator.languages);
 

@@ -58,6 +58,7 @@ export default function Apply({ dataWelcomeToApply, register }) {
                             sitekey="6LfBXdcZAAAAAClSmS5XjzXJOCK7WFCcwtw7aeJE"
                             onChange={onChange}
                         />
+
                         {error === "email" && (
                             <div>
                                 <FormattedMessage id="errorEmail" />
@@ -69,9 +70,9 @@ export default function Apply({ dataWelcomeToApply, register }) {
                             </div>
                         )}
                         {error === "verified" && (
-                            <div>
+                            <h2>
                                 <FormattedMessage id="errorCaptcha" />
-                            </div>
+                            </h2>
                         )}
 
                         <div className="input-container">
