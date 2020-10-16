@@ -18,7 +18,7 @@ import { useHistory } from "react-router-dom";
 
 export function useAuthSubmit(route, value, register, verified) {
     const history = useHistory();
-    console.log("history in useAuthSubmit", history);
+    //console.log("history in useAuthSubmit", history);
     const [error, setError] = useState(false);
     //console.log("register in useAuthSubmit", register);
     //console.log("verified in useAuthSubmit", verified);

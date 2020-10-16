@@ -93,7 +93,8 @@ if (process.env.NODE_ENV != "production") {
 //add captcha stuff
 let secrets;
 if (process.env.NODE_ENV) {
-    secrets = process.env.CAPTCHA_SECRET; // in prod the secrets are environment variables
+    secrets = process.env; // in prod the secrets are environment variables
+    console.log("secrets", secrets);
 } else {
     secrets = require("./secrets"); // in dev they are in secrets.json which is listed in .gitignore
 }
