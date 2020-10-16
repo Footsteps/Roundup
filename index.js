@@ -106,7 +106,7 @@ app.use(bodyParser.json());
 
 //////////////////CAPTCHA////////////////////////////////////////////////////////
 app.post("/captcha", (req, res) => {
-    //console.log("captcha got hit,", req.body);
+    console.log("captcha got hit,", req.body);
     if (
         req.body.value === undefined ||
         req.body.value === "" ||
