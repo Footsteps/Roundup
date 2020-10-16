@@ -33,7 +33,7 @@ export function useAuthSubmit(route, value, register, verified) {
             history.push("/apply");
         } else {
             //console.log("browser language", navigator.languages);
-
+            console.log("doing axios post now after captcha");
             axios.post(route, value).then((resp) => {
                 console.log("resp from handleSubmit", resp);
 
