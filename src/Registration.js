@@ -36,6 +36,9 @@ export default function Registration() {
             <h1>
                 <FormattedMessage id="REGISTER" />
             </h1>
+            <p>
+                <FormattedMessage id="registerText" />
+            </p>
             <img id="logoWelcome" src="./logo.jpg" />
 
             <div className="register box">

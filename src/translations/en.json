@@ -76,6 +76,7 @@
     "password": "Password",
     "reset": "Click here to reset your password",
     "REGISTER": "Registration for the participants lounge!",
+    "registerText": "If you want, you can register for the participant's section. There you can upload a picture of yourself, or chat with other participants...",
     "errorEmail": "Oh! Sorry, somebody else already booked with this email-adress",
     "errorOther": "Oh, something went wrong. Please try again.",
     "errorCaptcha": "Please verify that you are a human",
