@@ -116,16 +116,16 @@ app.post("/captcha", (req, res) => {
     }
 
     const secretKey = secrets.RECAPTCHA_SECRET;
-    console.log("secretkey", secretKey);
+    //console.log("secretkey", secretKey);
     const humanKey = req.body.value;
-    console.log("human key", humanKey);
+    //console.log("human key", humanKey);
     const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${humanKey}&remoteip=${req.connection.remoteAdress}`;
 
     //make request to verify url
     request(verifyUrl, (err, response, body) => {
         body = JSON.parse(body);
-        console.log("body in request", body.success);
-        console.log("body in request", body);
+        //console.log("body in request", body.success);
+        //console.log("body in request", body);
         //if not successful: return object
         if (body.success !== undefined && !body.success) {
             return res.json({
